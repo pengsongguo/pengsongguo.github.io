@@ -20,30 +20,32 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="郭鹏松的个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Albert Guo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="介绍NPM 是随同 NodeJS 一起安装的包管理工具，能解决 NodeJS 代码部署上的很多问题，常见的使用场景有以下几种：  允许用户从 NPM 服务器下载别人编写的第三方包到本地使用。 允许用户从 NPM 服务器下载并安装别人编写的命令行程序到本地使用。 允许用户将自己编写的包或命令行程序上传到 NPM 服务器供别人使用。  由于新版的 nodejs 已经集成了 npm ，所以之前 npm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="npm 使用教程">
+<meta property="og:url" content="http://yoursite.com/2020/06/29/npm-%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Albert Guo">
-<meta property="og:description" content="郭鹏松的个人博客">
+<meta property="og:description" content="介绍NPM 是随同 NodeJS 一起安装的包管理工具，能解决 NodeJS 代码部署上的很多问题，常见的使用场景有以下几种：  允许用户从 NPM 服务器下载别人编写的第三方包到本地使用。 允许用户从 NPM 服务器下载并安装别人编写的命令行程序到本地使用。 允许用户将自己编写的包或命令行程序上传到 NPM 服务器供别人使用。  由于新版的 nodejs 已经集成了 npm ，所以之前 npm">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-29T11:28:56.000Z">
+<meta property="article:modified_time" content="2020-06-29T11:29:16.278Z">
 <meta property="article:author" content="Albert Guo">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/2020/06/29/npm-%E4%BD%BF%E7%94%A8/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Albert Guo</title>
+  <title>npm 使用教程 | Albert Guo</title>
   
 
 
@@ -161,9 +163,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -179,10 +182,9 @@
       <meta itemprop="name" content="Albert Guo">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/29/npm-%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">npm 使用教程</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          npm 使用教程
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -206,7 +208,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>NPM 是随同 NodeJS 一起安装的包管理工具，能解决 NodeJS 代码部署上的很多问题，常见的使用场景有以下几种：</p>
+        <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>NPM 是随同 NodeJS 一起安装的包管理工具，能解决 NodeJS 代码部署上的很多问题，常见的使用场景有以下几种：</p>
 <ul>
 <li>允许用户从 NPM 服务器下载别人编写的第三方包到本地使用。</li>
 <li>允许用户从 NPM 服务器下载并安装别人编写的命令行程序到本地使用。</li>
@@ -360,245 +362,30 @@
 
 <p>更多信息可以查阅：<a href="http://npm.taobao.org/" target="_blank" rel="noopener">http://npm.taobao.org/</a> 。</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/29/git-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.png">
-      <meta itemprop="name" content="Albert Guo">
-      <meta itemprop="description" content="郭鹏松的个人博客">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Albert Guo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/08/29/git-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">git 基本使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-08-29 19:22:13" itemprop="dateCreated datePublished" datetime="2018-08-29T19:22:13+08:00">2018-08-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-29 19:28:03" itemprop="dateModified" datetime="2020-06-29T19:28:03+08:00">2020-06-29</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h1><p>很多人都知道， Linus 在 1991 年创建了开源的 Linux，从此，Linux 系统不断发展，已经成为最大的服务器系统软件了。</p>
-<p>Linus 虽然创建了 Linux，但 Linux 的壮大是靠全世界热心的志愿者参与的，这么多人在世界各地为 Linux 编写代码，那Linux的代码是如何管理的呢？</p>
-<p>事实是，在 2002 年以前，世界各地的志愿者把源代码文件通过 diff 的方式发给 Linus，然后由 Linus 本人通过手工方式合并代码！</p>
-<p>你也许会想，为什么 Linus 不把 Linux 代码放到版本控制系统里呢？不是有 CVS、SVN 这些免费的版本控制系统吗？因为 Linus 坚定地反对 CVS 和 SVN，这些集中式的版本控制系统不但速度慢，而且必须联网才能使用。有一些商用的版本控制系统，虽然比 CVS、SVN 好用，但那是付费的，和 Linux 的开源精神不符。</p>
-<p>不过，到了 2002 年，Linux 系统已经发展了十年了，代码库之大让 Linus 很难继续通过手工方式管理了，社区的弟兄们也对这种方式表达了强烈不满，于是 Linus 选择了一个商业的版本控制系统 BitKeeper，BitKeeper 的东家 BitMover 公司出于人道主义精神，授权 Linux 社区免费使用这个版本控制系统。</p>
-<p>安定团结的大好局面在 2005 年就被打破了，原因是 Linux 社区牛人聚集，不免沾染了一些梁山好汉的江湖习气。开发 Samba 的 Andrew 试图破解 BitKeeper 的协议（这么干的其实也不只他一个），被BitMover公司发现了（监控工作做得不错！），于是 BitMover 公司怒了，要收回 Linux 社区的免费使用权。</p>
-<p>Linus 可以向 BitMover 公司道个歉，保证以后严格管教弟兄们，嗯，这是不可能的。实际情况是这样的：</p>
-<p>Linus 花了两周时间自己用 C 写了一个分布式版本控制系统，这就是 Git！一个月之内，Linux 系统的源码已经由 Git 管理了！牛是怎么定义的呢？大家可以体会一下。</p>
-<p>Git 迅速成为最流行的分布式版本控制系统，尤其是 2008 年，GitHub 网站上线了，它为开源项目免费提供 Git 存储，无数开源项目开始迁移至 GitHub，包括 jQuery，PHP，Ruby 等等。</p>
-<p>历史就是这么偶然，如果不是当年 BitMover 公司威胁 Linux 社区，可能现在我们就没有免费而超级好用的 Git了。</p>
-<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>Git 的设置文件为 <code>.gitconfig</code> ，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config --list &#x2F;&#x2F;显示当前 Git 配置</span><br><span class="line">git config -e [--global] &#x2F;&#x2F;编辑 Git 配置，vim 编辑，中括号[--global]表示可加可不加，加了的话表示全局</span><br><span class="line">git config [--global] user.name &quot;[name]&quot; &#x2F;&#x2F;设置提交代码的用户信息</span><br><span class="line">git config [--global] user.email &quot;[email address]&quot;</span><br></pre></td></tr></table></figure>
-
-<h1 id="创建版本仓库"><a href="#创建版本仓库" class="headerlink" title="创建版本仓库"></a>创建版本仓库</h1><ol>
-<li>版本库又名仓库，英文名 <code>repository</code> 。选择一个合适的地方，创建一个空目录。</li>
-<li>通过 <code>git init</code> 命令把这个目录变成 Git 可以管理的仓库（初始化仓库）。</li>
-</ol>
-<h1 id="把文件添加到版本库"><a href="#把文件添加到版本库" class="headerlink" title="把文件添加到版本库"></a>把文件添加到版本库</h1><ol>
-<li>使用命令 <code>git add &lt;file&gt;</code> 告诉 Git，把文件 添加 到仓库。</li>
-<li>使用命令 <code>git commit -m &quot;XXX&quot;</code> 告诉 Git，把文件 提交 到仓库， <code>-m</code> 后面跟的是本次提交的注释说明。<code>commit</code> 一次可以提交很多文件，可以使用多次 <code>add</code> 不同的文件。</li>
-</ol>
-<h1 id="commit-规范"><a href="#commit-规范" class="headerlink" title="commit 规范"></a>commit 规范</h1><p>一般情况下，提交 Git 时的注释可以分成几类，可以用几个动词开始：</p>
-<ul>
-<li>Added ( 新加入的需求 )</li>
-<li>Fixed ( 修复 bug )</li>
-<li>Changed ( 完成的任务 )</li>
-<li>Updated ( 完成的任务，或者由于第三方模块变化而做的变化 )</li>
-</ul>
-<p>尽量将注释缩减为一句话，不要包含详细的内容。</p>
-<h1 id="查看仓库的当前状态"><a href="#查看仓库的当前状态" class="headerlink" title="查看仓库的当前状态"></a>查看仓库的当前状态</h1><p> <code>git status</code> 命令可以查看仓库当前的状态，随时掌握工作区的状态，谁被修改过了，还没有提交等等。</p>
-<p>修改文件内容，未提交到暂存区，此时输入 <code>git status</code> 后：</p>
-<p><img src="https://raw.githubusercontent.com/pengsongguo/ImgURL/master/git/20200415103329.png" alt="图示"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">changes not staged for commit    &#x2F;&#x2F;改变 没有 进行 提交</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>上面的命令告诉我们，readme.txt 被修改过了，但是还没有准备提交(暂存)。</p>
-</blockquote>
-<p>将修改后的文件通过 <code>git add</code> 命令提交到暂存区后，此时输入 <code>git status</code> 后：</p>
-<p><img src="https://raw.githubusercontent.com/pengsongguo/ImgURL/master/git/20200415105620.png" alt="图示"></p>
-<blockquote>
-<p>上面的命令告诉我们，将要被提交的修改包括 readme.txt</p>
-</blockquote>
-<p>将文件通过 <code>git commit</code> 命令提交到仓库后 ，此时输入 <code>git status</code> 后：</p>
-<p><img src="https://raw.githubusercontent.com/pengsongguo/ImgURL/master/git/20200415110412.png" alt="图示"></p>
-<blockquote>
-<p>上述命令告诉我们当前没有需要提交的修改，而且工作目录是干净的。</p>
-</blockquote>
-<p> <code>git diff</code> 命令可以看到工作区和暂存区的区别； <code>git diff head -- readme.txt</code> 命令可以查看工作区和版本库里面的区别。</p>
-<p><img src="https://raw.githubusercontent.com/pengsongguo/ImgURL/master/git/20200415105911.png" alt="图示"></p>
-<h1 id="查看提交的历史记录"><a href="#查看提交的历史记录" class="headerlink" title="查看提交的历史记录"></a>查看提交的历史记录</h1><p><code>git log</code> 命令可以查看所有提交的比较详细的历史纪录。<br>如果不想要太详细，可以使用 <code>git log --pretty=oneline</code>。</p>
-<h1 id="时光穿梭机"><a href="#时光穿梭机" class="headerlink" title="时光穿梭机"></a>时光穿梭机</h1><p><code>6280d3……e547</code> 是 <code>commit id</code> （版本号）。<br>在 Git 中，用 <code>HEAD</code> 表示当前版本，上一个版本就是 <code>HEAD^</code> ，上上个版本就是 <code>HEAD^^</code> ，往前一百个版本为 <code>HEAD~100</code>。</p>
-<p>回到上一个版本为 <code>git reset --hard &quot;HEAD^&quot;</code> (实测不区分大小写)</p>
-<p>回到上上个版本为 <code>git reset --hard &quot;head^^&quot;</code> (实测不区分大小写)</p>
-<p>假如知道版本号，回到某一个版本为 <code>git reset --hard 126378</code> (版本号,写前几位就行)</p>
-<p>假如因为一些原因，关闭了命令行窗口，暂时无法知道某一次代码的版本号，可以使用命令 <code>git reflog</code> ，这个命令记录了你之前操作的每一次命令，可以查看版本号，知道了版本号就可以随意回退版本了。</p>
-<p><img src="https://raw.githubusercontent.com/pengsongguo/ImgURL/master/git/20200415110157.png" alt="图示"></p>
-<h1 id="工作区和暂存区"><a href="#工作区和暂存区" class="headerlink" title="工作区和暂存区"></a>工作区和暂存区</h1><p>Git 和其他版本控制系统如 SVN 的一个不同之处就是有暂存区的概念。</p>
-<p>工作区（Working Directory）：就是你电脑里面能看到的目录。<br>版本库（Repository）：工作区有一个隐藏目录 .git ，这个不算工作区，而是 Git 的版本库。Git 的版本库里存了很多东西，其中最重要的是称为 stage（或者叫做 index）的暂存区，还有 Git为我们自动创建的第一个分支 master，以及指向 master 的一个指针叫做 HEAD。</p>
-<p>把文件往 Git 版本库里面添加的时候，是分两步执行的：</p>
-<ol>
-<li>用 <code>git add</code> 把文件添加进去，实际上就是把文件添加到暂存区；</li>
-<li>用 <code>git commit</code> 提交更改，实际上就是把暂存区的所有内容提交到当前分支。</li>
-</ol>
-<p>因为我们创建 Git 版本库时候，Git 自动为我们创建了唯一一个 <code>master</code> 分支，所以，现在， <code>git commit</code> 就是往 <code>master</code> 分支上提交更改。</p>
-<p><code>git commit</code> 只负责把暂存区的修改提交到仓库，不管工作区的内容。</p>
-<p><img src="https://raw.githubusercontent.com/pengsongguo/ImgURL/master/git/20200415110220.png" alt="图示"></p>
-<h1 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h1><p><code>git checkout -- file</code> 可以丢弃工作区的修改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- readme.txt</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/pengsongguo/ImgURL/master/git/20200415110608.png" alt="图示"></p>
-<p>命令 <code>git checkout -- readme.txt</code> 意思就是，把 readme.txt 文件在工作区的修改全部撤销，这里有两种情况：</p>
-<ol>
-<li>一种是 readme.txt 自修改后还 没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态。</li>
-<li>一种是 readme.txt 已经 添加到暂存区后，又做了修改，现在，撤销修改就回到添加到暂存区后的状态。</li>
-</ol>
-<p><code>git checkout -- file</code> 命令中的 <code>--</code> 很重要，没有 <code>--</code> ，就变成了“切换到另一个分支”的命令，我们在后面的分支管理中会再次遇到 <code>git checkout</code> 命令。</p>
-<p>假如修改的内容已经被 <code>git add</code> 到了暂存区，可以使用 <code>git reset HEAD file</code> 可以把暂存区的修改撤销掉，重新放回工作区。</p>
-<p><img src="https://raw.githubusercontent.com/pengsongguo/ImgURL/master/git/20200415133524.png" alt="图示"></p>
-<p><code>git reset</code> 命令可以回退版本，也可以把暂存区的修改退回到工作区。当我们用 <code>HEAD</code> 时，表示最新的版本。</p>
-<p>再用 <code>git status</code> 查看一下，发现暂存区是干净的，工作区又修改。</p>
-<p>然后再使用 <code>git checkout -- file</code>，撤销掉工作区的操作。</p>
-<p>假如修改的内容从暂存区 <code>git commit</code> 到了版本库，回退的话可以参照时光穿梭机，会回退到上一版本， <code>git reset --hard &quot;HEAD^&quot;</code> 。（不过这是有条件的，就是此时本地的代码没有被推送到远程仓库）</p>
-<h1 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h1><p>Git 是分布式版本管理系统，同一个 Git 仓库，可以分布到不同的机器上。怎么分布呢？最早，肯定只有一台机器有一个原始版本库，此后，别的机器可以克隆这个原始版本库，而且每台机器的版本库其实都是一样的，并没有主次之分。</p>
-<p>实际情况是这样的，找一台电脑充当服务器的角色，每天24小时开机，其他每个人都从这个“服务器”仓库克隆一份到自己的电脑上，并且各自把各自的提交推送到服务器仓库里，也从服务器仓库中拉取别人的提交。GitHub 就类似于“服务器”的角色，托管代码。</p>
-<h1 id="查看远程仓库"><a href="#查看远程仓库" class="headerlink" title="查看远程仓库"></a>查看远程仓库</h1><p>查看远程分支： <code>git branch -a</code><br>注意：这条命令并没有每一次都从远程更新仓库信息，这样子做是为了效率， 我们可以手动更新一下远程分支：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin    &#x2F;&#x2F;更新远程仓库</span><br><span class="line">git branch -a    &#x2F;&#x2F;查看远程分支</span><br></pre></td></tr></table></figure>
-
-<h1 id="拉取远程分支、并创建本地分支"><a href="#拉取远程分支、并创建本地分支" class="headerlink" title="拉取远程分支、并创建本地分支"></a>拉取远程分支、并创建本地分支</h1><p>方法一：<code>git checkout -b 本地分支 XXX origin/远程分支XXX</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b gps origin&#x2F;gps    &#x2F;&#x2F;将远程的分支 gps 拉取到本地 gps 分支，并且切换到本地 gps 分支</span><br></pre></td></tr></table></figure>
-
-<p>使用该方式会在本地新建分支 gps，并自动切换到该本地分支 gps。</p>
-<p>方法二：<code>git fetch origin 远程分支XXX:本地分支XXX</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin gps:gps    &#x2F;&#x2F;将远程的分支 gps 拉取到本地 gps 分支，但是不会自动切换到本地的 gps 分支</span><br></pre></td></tr></table></figure>
-
-<p>使用该方式会在本地新建分支 gps，但是不会自动切换到该本地分支 gps，需要手动 <code>checkout</code>。</p>
-<h1 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h1><p>远程仓库建立的方法略过，假定现在已经有了线上的远程仓库地址。<br>在本地的 learngit 仓库下运行命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:albert-guo&#x2F;learngit.git</span><br></pre></td></tr></table></figure>
-
-<p>上面的 albert-guo 替换成自己的 GitHub 帐户名，否则你在本地关联的就不一定是你的仓库，关联错了也没关系，但是以后是无法推上去的，因为你的 <code>SSH Key</code> 公钥不在这个帐户的列表中。</p>
-<p>添加后，远程仓库的名字就是 <code>origin</code> ，这是 Git 默认的叫法，也可以改成别的，但是 <code>origin</code> 这个名字一看就知道是远程仓库。</p>
-<p>把本地库的所有内容推送到远程仓库上：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
-
-<p>把本地库的内容推送到远程，用 <code>git push</code> 命令，实际上是把当前分支 <code>master</code> 推送到远程。</p>
-<p>由于远程仓库是空的，我们第一次推送的 <code>master</code>  分支时候，加上了 <code>-u</code> 参数，Git 不但会把本地的 <code>master</code>  分支推送到远程新的 <code>master</code> 分支，还会把本地的 <code>master</code> 分支和远程的 <code>master</code>  分支关联起来，在以后的推送或者拉取的时候可以简化命令。</p>
-<p>从现在起，只要本地做了提交，就可以通过命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-
-<p>把本地 <code>master</code> 分支的最新修改推送到 GitHub，现在就拥有了真正的分布式版本库。</p>
-<p>分布式版本系统最大的好处之一就是在本地工作的时候不需要考虑远程仓库的存在，也就是没有联网也可以工作，而 svn 在没有联网的时候是拒绝干活的，当有网络的时候再把本地提交推送一下就完成了同步，比较方便。</p>
-<h1 id="从远程仓库克隆"><a href="#从远程仓库克隆" class="headerlink" title="从远程仓库克隆"></a>从远程仓库克隆</h1><p>要克隆一个仓库，首先必须知道仓库地址，然后使用 <code>git clone</code> 命令克隆。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:albert-guo&#x2F;learngit.git</span><br></pre></td></tr></table></figure>
-
-<p>Git 支持多种协议，包括　<code>https</code> ，但是通过 <code>ssh</code> 支持的原生 Git 协议最快。默认的　<code>git://</code>　使用 <code>ssh</code>，但也可以使用 <code>https</code> 等其他协议。使用 <code>https</code> 除了速度慢以外，还有个最大的麻烦就是每次推送必须输入口令，只是在某些只开放 http 端口的公司内部就无法使用 ssh 协议而只能用 <code>https</code>。</p>
-<h1 id="创建与合并分支"><a href="#创建与合并分支" class="headerlink" title="创建与合并分支"></a>创建与合并分支</h1><p>首先创建 dev 分支，然后切换到 dev 分支。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b dev</span><br></pre></td></tr></table></figure>
-
-<p><code>git checkout</code> 命令上加 <code>-b</code> 参数表示创建并且切换，相当于下面两条命令。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch dev &#x2F;&#x2F; 创建一个叫 dev 的分支。</span><br><span class="line">git checkout dev &#x2F;&#x2F; 切换到 dev 分支。</span><br></pre></td></tr></table></figure>
-
-<p>查看当前所在分支命令 <code>git branch</code> 。该命令会列出所有分支，并且在当前的分支前面加 <code>*</code> 。</p>
-<p><img src="https://raw.githubusercontent.com/pengsongguo/ImgURL/master/git/20200415133743.png" alt="图示"></p>
-<p>在 dev 分支上提交几次代码后，尝试将 dev 分支和 master 分支合并。</p>
-<p><code>git merge</code> 命令用于合并指定分支到当前分支。比如当前在 master 分支上，然后通过命令 <code>git merge dev</code> 可将 dev 分支合并到当前的 master 分支。</p>
-<p><code>git merge --abort</code> 表示撤销刚才的合并。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git merge dev   &#x2F;&#x2F; 将 dev 分支合并到当前的 merge 分支上</span><br><span class="line">git merge --abort    &#x2F;&#x2F; 将刚才合并操作撤销</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/pengsongguo/ImgURL/master/git/20200415133813.png" alt="图示"></p>
-<p>注意上面的 <code>Fast-forward</code> 信息，表示这次合并是“快进模式”，也就是直接把 master 指向 dev 的当前提交，所以合并速度非常快。当然也不是每一次合并都能 <code>Fast-forward</code> ，后续还会有其他方式合并。</p>
-<p>合并之后，可以放心删除 dev 分支。删除命令 <code>git branch -d dev</code> 。</p>
-<p>小结：</p>
-<ul>
-<li>查看分支：<code>git branch</code></li>
-<li>创建分支：<code>git branch &lt;name&gt;</code></li>
-<li>切换分支：<code>git checkout &lt;name&gt;</code></li>
-<li>创建+切换分支：<code>git checkout -b &lt;name&gt;</code></li>
-<li>合并某分支到当前分支：<code>git merge &lt;name&gt;</code></li>
-<li>删除分支：<code>git branch -d &lt;name&gt;</code></li>
-<li>强制删除分支（没有合并）：<code>git branch -D &lt;name&gt;</code></li>
-</ul>
-<h1 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h1><p>假如两个分支编辑的内容区块相同，各分支都有了自己新的提交。这种情况下，Git 无法执行“快速合并”，只能试图把各自的修改合并起来，但是这种合并就会有冲突。</p>
-<p><img src="https://raw.githubusercontent.com/pengsongguo/ImgURL/master/git/20200415133920.png" alt="图示"></p>
-<p>Git 告诉我们，合并失败，必须手动解决冲突后再提交。<br>此时，用命令 <code>git diff</code> 可以查看冲突的地方。也可以直接在冲突的文件里，找到相关的冲突的位置。</p>
-<p>Git 会用 <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; , ======= , &gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> 标记出不同分支的内容，然后在文件中解决了冲突后保存。<br>用带参数的 <code>git log --graph --pretty=oneline</code> ，简短显示分支的合并情况。<br><code>git log --graph</code> 命令可以看到详细分支合并图，<code>git log --graph --pretty=oneline</code> 命令可以简单看到分支合并情况。</p>
-<p><img src="https://raw.githubusercontent.com/pengsongguo/ImgURL/master/git/20200415133952.png" alt="图示"></p>
-<p>解决完冲突后，可将 dev 分支删除，命令为 <code>git branch -d dev</code> 。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d dev   &#x2F;&#x2F;删除 dev 分支</span><br></pre></td></tr></table></figure>
-
-<h1 id="禁用快速合并"><a href="#禁用快速合并" class="headerlink" title="禁用快速合并"></a>禁用快速合并</h1><p>通常情况下，合并分支时，如果可能，Git 会用 Fast Forward 模式，但是这种模式下，删除分支后，会丢掉分支信息。<br>如果要强制禁用 Fast Forward 模式，Git 就会在 merge 时生成一个新的 commit ，这样，从分支历史上就可以看出分支信息。</p>
-<p>比如我们从现在在 master 分支上，要把 dev 分支合并到当前的 master 分支。<br>可以用 <code>git merge --no-ff -m</code>  “强制合并，禁用快速合并” dev。<br>因为本次合并要创建一个 commit ，所以加了一个 -m 参数，把 commit 描述进去。</p>
-<h1 id="gitignore"><a href="#gitignore" class="headerlink" title="gitignore"></a>gitignore</h1><p>一定要养成在项目开始就创建 <code>.gitignore</code> 文件的习惯，否则一旦 push，处理起来会非常麻烦。</p>
-<p>配置语法：</p>
-<ul>
-<li>以 <code>/</code> 开头表示根目录,防止递归</li>
-<li>以 <code>/</code> 结尾表示指定目录</li>
-<li>以 <code>!</code> 开头表示不过滤（跟踪）此项配置匹配到的文件或目录</li>
-<li>以 <code>#</code> 开头表示注释，如需转义在前面加斜杠，/#</li>
-<li>配置规则可以使用标准的 glob 模式匹配(glob 模式是指 shell 所使用的简化了的正则表达式)</li>
-</ul>
-<p>有时候在项目开发过程中，突然心血来潮想把某些目录或文件加入忽略规则，按照上述方法定义后发现并未生效，原因是 <code>.gitignore</code> 只能忽略那些原来没有被 <code>track</code> 的文件，如果某些文件已经被纳入了版本管理中，则修改 <code>.gitignore</code> 是无效的。那么解决方法就是先把本地缓存删除（改变成未 <code>track</code> 状态），然后再提交：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached .</span><br><span class="line">git add .</span><br><span class="line">git commit -m &#39;update .gitignore&#39;</span><br></pre></td></tr></table></figure>
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/08/29/git-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" rel="prev" title="git 基本使用">
+      <i class="fa fa-chevron-left"></i> git 基本使用
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -651,6 +438,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-npm-命令安装模块"><span class="nav-number">2.</span> <span class="nav-text">使用 npm 命令安装模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全局安装与本地安装"><span class="nav-number">3.</span> <span class="nav-text">全局安装与本地安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本地安装"><span class="nav-number">3.1.</span> <span class="nav-text">本地安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局安装"><span class="nav-number">3.2.</span> <span class="nav-text">全局安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看安装信息"><span class="nav-number">3.3.</span> <span class="nav-text">查看安装信息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#几种安装方式的区别-g、–save、–save-dev"><span class="nav-number">4.</span> <span class="nav-text">几种安装方式的区别(-g、–save、–save-dev)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-install-moduleName-命令"><span class="nav-number">4.1.</span> <span class="nav-text">npm install moduleName 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-install-g-moduleName-命令"><span class="nav-number">4.2.</span> <span class="nav-text">npm install -g moduleName 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-install-save-moduleName-命令"><span class="nav-number">4.3.</span> <span class="nav-text">npm install -save moduleName 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-install-save-dev-moduleName-命令"><span class="nav-number">4.4.</span> <span class="nav-text">npm install -save-dev moduleName 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-package-json"><span class="nav-number">5.</span> <span class="nav-text">使用 package.json</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Package-json-属性说明"><span class="nav-number">6.</span> <span class="nav-text">Package.json 属性说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#卸载模块"><span class="nav-number">7.</span> <span class="nav-text">卸载模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更新模块"><span class="nav-number">8.</span> <span class="nav-text">更新模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搜索模块"><span class="nav-number">9.</span> <span class="nav-text">搜索模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建模块"><span class="nav-number">10.</span> <span class="nav-text">创建模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#版本号"><span class="nav-number">11.</span> <span class="nav-text">版本号</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NPM-常用命令"><span class="nav-number">12.</span> <span class="nav-text">NPM 常用命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用淘宝-NPM-镜像"><span class="nav-number">13.</span> <span class="nav-text">使用淘宝 NPM 镜像</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
