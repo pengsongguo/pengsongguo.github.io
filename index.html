@@ -428,7 +428,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-30 10:52:00" itemprop="dateModified" datetime="2020-06-30T10:52:00+08:00">2020-06-30</time>
+                <time title="修改时间：2020-06-30 11:20:11" itemprop="dateModified" datetime="2020-06-30T11:20:11+08:00">2020-06-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -455,7 +455,7 @@
 <p>声明，本教程摘录于廖雪峰Git教程，非本人原创。文中部分内容来自于个人工作积累编写，仅供学习参考。</p>
 </blockquote>
 <p>原创网址： <a href="https://www.liaoxuefeng.com/wiki/896043488029600/896067008724000" target="_blank" rel="noopener">Git教程</a></p>
-<h1 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h1><p>很多人都知道， ==Linus== 在 1991 年创建了开源的 Linux，从此，Linux 系统不断发展，已经成为最大的服务器系统软件了。</p>
+<h1 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h1><p>很多人都知道， Linus 在 1991 年创建了开源的 Linux，从此，Linux 系统不断发展，已经成为最大的服务器系统软件了。</p>
 <p>Linus 虽然创建了 Linux，但 Linux 的壮大是靠全世界热心的志愿者参与的，这么多人在世界各地为 Linux 编写代码，那Linux的代码是如何管理的呢？</p>
 <p>事实是，在 2002 年以前，世界各地的志愿者把源代码文件通过 diff 的方式发给 Linus，然后由 Linus 本人通过手工方式合并代码！</p>
 <p>你也许会想，为什么 Linus 不把 Linux 代码放到版本控制系统里呢？不是有 CVS、SVN 这些免费的版本控制系统吗？因为 Linus 坚定地反对 CVS 和 SVN，这些集中式的版本控制系统不但速度慢，而且必须联网才能使用。有一些商用的版本控制系统，虽然比 CVS、SVN 好用，但那是付费的，和 Linux 的开源精神不符。</p>
@@ -486,31 +486,31 @@
 <p>尽量将注释缩减为一句话，不要包含详细的内容。</p>
 <h1 id="查看仓库的当前状态"><a href="#查看仓库的当前状态" class="headerlink" title="查看仓库的当前状态"></a>查看仓库的当前状态</h1><p> <code>git status</code> 命令可以查看仓库当前的状态，随时掌握工作区的状态，谁被修改过了，还没有提交等等。</p>
 <p>修改文件内容，未提交到暂存区，此时输入 <code>git status</code> 后：</p>
-<p><img src="https://note.youdao.com/yws/public/resource/98fa5f92b598b47a898ce4e0c6c4375a/xmlnote/WEBRESOURCE22d9c018b9fa3c5691f6317a5db66ed7/4754" alt="图示"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">changes not staged for commit    &#x2F;&#x2F;改变 没有 进行 提交</span><br></pre></td></tr></table></figure>
+<p><img src="/images/git/20200415103329.png" alt="图示"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">changes not staged for commit    &#x2F;&#x2F; 改变 没有 进行 提交</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>上面的命令告诉我们，readme.txt 被修改过了，但是还没有准备提交(暂存)。</p>
 </blockquote>
 <p>将修改后的文件通过 <code>git add</code> 命令提交到暂存区后，此时输入 <code>git status</code> 后：</p>
-<p><img src="https://note.youdao.com/yws/public/resource/98fa5f92b598b47a898ce4e0c6c4375a/xmlnote/WEBRESOURCE91da56de374e9226ef30a070bf74e0a4/4760" alt="图示"></p>
+<p><img src="/images/git/20200415105620.png" alt="图示"></p>
 <blockquote>
 <p>上面的命令告诉我们，将要被提交的修改包括 readme.txt</p>
 </blockquote>
 <p>将文件通过 <code>git commit</code> 命令提交到仓库后 ，此时输入 <code>git status</code> 后：</p>
-<p><img src="https://note.youdao.com/yws/public/resource/98fa5f92b598b47a898ce4e0c6c4375a/xmlnote/WEBRESOURCE3a0b9bf6139eabddc852e0aa8fbafeb2/4766" alt="图示"></p>
+<p><img src="/images/git/20200415110412.png" alt="图示"></p>
 <blockquote>
 <p>上述命令告诉我们当前没有需要提交的修改，而且工作目录是干净的。</p>
 </blockquote>
 <p> <code>git diff</code> 命令可以看到工作区和暂存区的区别； <code>git diff head -- readme.txt</code> 命令可以查看工作区和版本库里面的区别。</p>
-<p><img src="https://note.youdao.com/yws/public/resource/98fa5f92b598b47a898ce4e0c6c4375a/xmlnote/WEBRESOURCE7543cef67e64538a4a7c09dffbb7f8c7/4763" alt="图示"></p>
+<p><img src="/images/git/20200415105911.png" alt="图示"></p>
 <h1 id="查看提交的历史记录"><a href="#查看提交的历史记录" class="headerlink" title="查看提交的历史记录"></a>查看提交的历史记录</h1><p><code>git log</code> 命令可以查看所有提交的比较详细的历史纪录。<br>如果不想要太详细，可以使用 <code>git log --pretty=oneline</code>。</p>
 <h1 id="时光穿梭机"><a href="#时光穿梭机" class="headerlink" title="时光穿梭机"></a>时光穿梭机</h1><p><code>6280d3……e547</code> 是 <code>commit id</code> （版本号）。<br>在 Git 中，用 <code>HEAD</code> 表示当前版本，上一个版本就是 <code>HEAD^</code> ，上上个版本就是 <code>HEAD^^</code> ，往前一百个版本为 <code>HEAD~100</code>。</p>
 <p>回到上一个版本为 <code>git reset --hard &quot;HEAD^&quot;</code> (实测不区分大小写)</p>
 <p>回到上上个版本为 <code>git reset --hard &quot;head^^&quot;</code> (实测不区分大小写)</p>
 <p>假如知道版本号，回到某一个版本为 <code>git reset --hard 126378</code> (版本号,写前几位就行)</p>
 <p>假如因为一些原因，关闭了命令行窗口，暂时无法知道某一次代码的版本号，可以使用命令 <code>git reflog</code> ，这个命令记录了你之前操作的每一次命令，可以查看版本号，知道了版本号就可以随意回退版本了。</p>
-<p><img src="https://note.youdao.com/yws/public/resource/98fa5f92b598b47a898ce4e0c6c4375a/xmlnote/WEBRESOURCE72ade295f0210d1ae5e71d71c4bc77a6/4769" alt="图示"></p>
+<p><img src="/images/git/20200415110157.png" alt="图示"></p>
 <h1 id="工作区和暂存区"><a href="#工作区和暂存区" class="headerlink" title="工作区和暂存区"></a>工作区和暂存区</h1><p>Git 和其他版本控制系统如 SVN 的一个不同之处就是有暂存区的概念。</p>
 <p>工作区（Working Directory）：就是你电脑里面能看到的目录。<br>版本库（Repository）：工作区有一个隐藏目录 .git ，这个不算工作区，而是 Git 的版本库。Git 的版本库里存了很多东西，其中最重要的是称为 stage（或者叫做 index）的暂存区，还有 Git为我们自动创建的第一个分支 master，以及指向 master 的一个指针叫做 HEAD。</p>
 <p>把文件往 Git 版本库里面添加的时候，是分两步执行的：</p>
@@ -520,11 +520,11 @@
 </ol>
 <p>因为我们创建 Git 版本库时候，Git 自动为我们创建了唯一一个 <code>master</code> 分支，所以，现在， <code>git commit</code> 就是往 <code>master</code> 分支上提交更改。</p>
 <p><code>git commit</code> 只负责把暂存区的修改提交到仓库，不管工作区的内容。</p>
-<p><img src="https://note.youdao.com/yws/public/resource/98fa5f92b598b47a898ce4e0c6c4375a/xmlnote/WEBRESOURCE50262dd204f4369ace8e19156fb904d4/4772" alt="图示"></p>
+<p><img src="/images/git/20200415110220.png" alt="图示"></p>
 <h1 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h1><p><code>git checkout -- file</code> 可以丢弃工作区的修改：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- readme.txt</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://note.youdao.com/yws/public/resource/98fa5f92b598b47a898ce4e0c6c4375a/xmlnote/WEBRESOURCEbed7e4642f1bd6a294e265145ab8405d/4775" alt="图示"></p>
+<p><img src="/images/git/20200415110608.png" alt="图示"></p>
 <p>命令 <code>git checkout -- readme.txt</code> 意思就是，把 readme.txt 文件在工作区的修改全部撤销，这里有两种情况：</p>
 <ol>
 <li>一种是 readme.txt 自修改后还 没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态。</li>
@@ -532,14 +532,14 @@
 </ol>
 <p><code>git checkout -- file</code> 命令中的 <code>--</code> 很重要，没有 <code>--</code> ，就变成了“切换到另一个分支”的命令，我们在后面的分支管理中会再次遇到 <code>git checkout</code> 命令。</p>
 <p>假如修改的内容已经被 <code>git add</code> 到了暂存区，可以使用 <code>git reset HEAD file</code> 可以把暂存区的修改撤销掉，重新放回工作区。</p>
-<p><img src="https://note.youdao.com/yws/public/resource/98fa5f92b598b47a898ce4e0c6c4375a/xmlnote/WEBRESOURCEf526c2c52e84ceb69a7b55881a1f1f09/4778" alt="图示"></p>
+<p><img src="/images/git/20200415133524.png" alt="图示"></p>
 <p><code>git reset</code> 命令可以回退版本，也可以把暂存区的修改退回到工作区。当我们用 <code>HEAD</code> 时，表示最新的版本。</p>
 <p>再用 <code>git status</code> 查看一下，发现暂存区是干净的，工作区又修改。</p>
 <p>然后再使用 <code>git checkout -- file</code>，撤销掉工作区的操作。</p>
 <p>假如修改的内容从暂存区 <code>git commit</code> 到了版本库，回退的话可以参照时光穿梭机，会回退到上一版本， <code>git reset --hard &quot;HEAD^&quot;</code> 。（不过这是有条件的，就是此时本地的代码没有被推送到远程仓库）</p>
 <h1 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h1><p>Git 是分布式版本管理系统，同一个 Git 仓库，可以分布到不同的机器上。怎么分布呢？最早，肯定只有一台机器有一个原始版本库，此后，别的机器可以克隆这个原始版本库，而且每台机器的版本库其实都是一样的，并没有主次之分。</p>
 <p>实际情况是这样的，找一台电脑充当服务器的角色，每天24小时开机，其他每个人都从这个“服务器”仓库克隆一份到自己的电脑上，并且各自把各自的提交推送到服务器仓库里，也从服务器仓库中拉取别人的提交。GitHub 就类似于“服务器”的角色，托管代码。</p>
-<h1 id="查看远程仓库"><a href="#查看远程仓库" class="headerlink" title="查看远程仓库"></a>查看远程仓库</h1><p>查看远程分支： <code>git branch -a</code><br>==注意：这条命令并没有每一次都从远程更新仓库信息，这样子做是为了效率，== 我们可以手动更新一下远程分支：</p>
+<h1 id="查看远程仓库"><a href="#查看远程仓库" class="headerlink" title="查看远程仓库"></a>查看远程仓库</h1><p>查看远程分支： <code>git branch -a</code><br>注意：这条命令并没有每一次都从远程更新仓库信息，这样子做是为了效率， 我们可以手动更新一下远程分支：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin    &#x2F;&#x2F;更新远程仓库</span><br><span class="line">git branch -a    &#x2F;&#x2F;查看远程分支</span><br></pre></td></tr></table></figure>
 
 <h1 id="拉取远程分支、并创建本地分支"><a href="#拉取远程分支、并创建本地分支" class="headerlink" title="拉取远程分支、并创建本地分支"></a>拉取远程分支、并创建本地分支</h1><p>方法一：<code>git checkout -b 本地分支 XXX origin/远程分支XXX</code></p>
@@ -576,13 +576,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch dev &#x2F;&#x2F; 创建一个叫 dev 的分支。</span><br><span class="line">git checkout dev &#x2F;&#x2F; 切换到 dev 分支。</span><br></pre></td></tr></table></figure>
 
 <p>查看当前所在分支命令 <code>git branch</code> 。该命令会列出所有分支，并且在当前的分支前面加 <code>*</code> 。</p>
-<p><img src="https://note.youdao.com/yws/public/resource/98fa5f92b598b47a898ce4e0c6c4375a/xmlnote/WEBRESOURCEf5555dd82881ddd2e456aab2b180d550/4781" alt="图示"></p>
+<p><img src="/images/git/20200415133743.png" alt="图示"></p>
 <p>在 dev 分支上提交几次代码后，尝试将 dev 分支和 master 分支合并。</p>
 <p><code>git merge</code> 命令用于合并指定分支到当前分支。比如当前在 master 分支上，然后通过命令 <code>git merge dev</code> 可将 dev 分支合并到当前的 master 分支。</p>
 <p><code>git merge --abort</code> 表示撤销刚才的合并。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git merge dev   &#x2F;&#x2F; 将 dev 分支合并到当前的 merge 分支上</span><br><span class="line">git merge --abort    &#x2F;&#x2F; 将刚才合并操作撤销</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://note.youdao.com/yws/public/resource/98fa5f92b598b47a898ce4e0c6c4375a/xmlnote/WEBRESOURCEb671f12416737f58450582c662c2b688/4784" alt="图示"></p>
+<p><img src="/images/git/20200415133813.png" alt="图示"></p>
 <p>注意上面的 <code>Fast-forward</code> 信息，表示这次合并是“快进模式”，也就是直接把 master 指向 dev 的当前提交，所以合并速度非常快。当然也不是每一次合并都能 <code>Fast-forward</code> ，后续还会有其他方式合并。</p>
 <p>合并之后，可以放心删除 dev 分支。删除命令 <code>git branch -d dev</code> 。</p>
 <p>小结：</p>
@@ -596,10 +596,10 @@
 <li>强制删除分支（没有合并）：<code>git branch -D &lt;name&gt;</code></li>
 </ul>
 <h1 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h1><p>假如两个分支编辑的内容区块相同，各分支都有了自己新的提交。这种情况下，Git 无法执行“快速合并”，只能试图把各自的修改合并起来，但是这种合并就会有冲突。</p>
-<p><img src="https://note.youdao.com/yws/public/resource/98fa5f92b598b47a898ce4e0c6c4375a/xmlnote/WEBRESOURCE1bfc1e6913e5dcba479a815925aea814/4787" alt="图示"></p>
+<p><img src="/images/git/20200415133920.png" alt="图示"></p>
 <p>Git 告诉我们，合并失败，必须手动解决冲突后再提交。<br>此时，用命令 <code>git diff</code> 可以查看冲突的地方。也可以直接在冲突的文件里，找到相关的冲突的位置。</p>
 <p>Git 会用 <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; , ======= , &gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> 标记出不同分支的内容，然后在文件中解决了冲突后保存。<br>用带参数的 <code>git log --graph --pretty=oneline</code> ，简短显示分支的合并情况。<br><code>git log --graph</code> 命令可以看到详细分支合并图，<code>git log --graph --pretty=oneline</code> 命令可以简单看到分支合并情况。</p>
-<p><img src="https://note.youdao.com/yws/public/resource/98fa5f92b598b47a898ce4e0c6c4375a/xmlnote/WEBRESOURCE08ab60698b60df4f271b2fc76f37f9ff/4790" alt="图示"></p>
+<p><img src="/images/git/20200415133952.png" alt="图示"></p>
 <p>解决完冲突后，可将 dev 分支删除，命令为 <code>git branch -d dev</code> 。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d dev   &#x2F;&#x2F;删除 dev 分支</span><br></pre></td></tr></table></figure>
 
