@@ -167,6 +167,95 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/14/%E6%B5%85%E8%B0%88SplitChunksPlugin/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="Albert Guo">
+      <meta itemprop="description" content="郭鹏松的个人博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Albert Guo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/14/%E6%B5%85%E8%B0%88SplitChunksPlugin/" class="post-title-link" itemprop="url">浅谈SplitChunksPlugin</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-14 16:27:15" itemprop="dateCreated datePublished" datetime="2020-05-14T16:27:15+08:00">2020-05-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-30 16:31:54" itemprop="dateModified" datetime="2020-06-30T16:31:54+08:00">2020-06-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webpack/" itemprop="url" rel="index"><span itemprop="name">webpack</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="SplitChunksPlugin"><a href="#SplitChunksPlugin" class="headerlink" title="SplitChunksPlugin"></a>SplitChunksPlugin</h1><p>CommonsChunkPlugin 已经从 webpack v4 legato 中移除。想要了解在最新版本中如何处理 chunk，请查看 SplitChunksPlugin。</p>
+<p>官方推荐的做法是采用 SplitChunksPlugin 配置，来实现代码的拆分。较新版本的 webpack 中，如果采用之前配置 CommonsChunkPlugin 的方法，会报错，找不到该插件。</p>
+<p>通过将公共模块拆出来，最终合成的文件能够在最开始的时候加载一次，便存到缓存中供后续使用。 这个带来速度上的提升，因为浏览器会迅速将公共的代码从缓存中取出来，而不是每次访问一个新页面时，再去加载一个更大的文件。</p>
+<p><code>optimization.splitChunks</code>  有默认的配置项，如果在配置文件中开启了该属性，但是没有配置任何参数的话，也是起作用的，因为该属性有默认配置项。例如：</p>
+<p><em>webpack.config.js</em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: <span class="string">'./app.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'bundle.js'</span>,</span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'./dist'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    optimization: &#123;</span><br><span class="line">        splitChunks: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>此时也是起作用的，默认配置项目如下：</p>
+<p><em>webpack.config.js</em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: <span class="string">'./app.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'bundle.js'</span>,</span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'./dist'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    optimization: &#123;</span><br><span class="line">        splitChunks: &#123;</span><br><span class="line">            chunks: <span class="string">"async"</span>,</span><br><span class="line">            minSize: <span class="number">30000</span>,</span><br><span class="line">            minChunks: <span class="number">1</span>,</span><br><span class="line">            maxAsyncRequests: <span class="number">5</span>,</span><br><span class="line">            maxInitialRequests: <span class="number">3</span>,</span><br><span class="line">            automaticNameDelimiter: <span class="string">'~'</span>,</span><br><span class="line">            name: <span class="literal">true</span>,</span><br><span class="line">            cacheGroups: &#123;</span><br><span class="line">                vendors: &#123;</span><br><span class="line">                    test: <span class="regexp">/[\\/]node_modules[\\/]/</span>,</span><br><span class="line">                    priority: <span class="number">-10</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="keyword">default</span>: &#123;</span><br><span class="line">                    minChunks: <span class="number">2</span>,</span><br><span class="line">                    priority: <span class="number">-20</span>,</span><br><span class="line">                    reuseExistingChunk: <span class="literal">true</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>常见配置项目的说明：</p>
+<p><em>webpack.config.js</em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: <span class="string">'./app.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'bundle.js'</span>,</span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'./dist'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    optimization: &#123;</span><br><span class="line">         splitChunks: &#123;</span><br><span class="line">            chunks: <span class="string">"all"</span>, <span class="comment">// 表示有3种可能值"initial", "async"和"all"。表示引入模块的方式是同步、异步、全部，默认异步。</span></span><br><span class="line">            minSize: <span class="number">30000</span>, <span class="comment">// 30kb ,默认大于30kb的包大小的时候才进行代码分割</span></span><br><span class="line">            <span class="comment">// maxSize:50000, // 默认没有此配置，可以不配置，有可能会将一个第三方库再次拆分，不建议配置</span></span><br><span class="line">            minChunks: <span class="number">1</span>, <span class="comment">// 表示当一个模块被用了多少次的时候才进行分割，默认1次，就进行分割</span></span><br><span class="line">            maxAsyncRequests: <span class="number">5</span>, <span class="comment">// 同时加载的模块数量，默认是5个。超过5个后，就不会再进行代码分割了（一般不动该配置）</span></span><br><span class="line">            maxInitialRequests: <span class="number">3</span>, <span class="comment">// 入口文件引入的其他模块，默认3个，超过后不再进行代码分割（一般不动该配置）</span></span><br><span class="line">            automaticNameDelimiter: <span class="string">'~'</span>, <span class="comment">// 组和文件名字之间的连接符</span></span><br><span class="line">            name: <span class="literal">true</span>, <span class="comment">// 表示cache里面的名字有效（一般不动该配置）</span></span><br><span class="line">            cacheGroups: &#123;</span><br><span class="line">                vendors: &#123;</span><br><span class="line">                    test: <span class="regexp">/[\\/]node_modules[\\/]/</span>, <span class="comment">// 检测引入库是否在 node_modules 目录下,是的话打包出来默认名为 vandors~bundule.js。</span></span><br><span class="line">                    priority: <span class="number">-10</span>, <span class="comment">// 优先级（比如 -10 大于 default 中的 -20），同时满足两个配置的话，优先走优先级高的配置</span></span><br><span class="line">                    filename: <span class="string">'vendors.js'</span> <span class="comment">// 修改库打包的文件名为 vendors.js</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="keyword">default</span>: &#123;</span><br><span class="line">                    minChunks: <span class="number">2</span>,</span><br><span class="line">                    priority: <span class="number">-20</span>, <span class="comment">// 优先级（比如 -10 大于 default 中的 -20），同时满足两个配置的话，优先走优先级高的配置</span></span><br><span class="line">                    reuseExistingChunk: <span class="literal">true</span> <span class="comment">// 如果一个模块已经被打包过了，再次遇到相同的模块后，直接复用，而不是再次打包</span></span><br><span class="line">                &#125; <span class="comment">// 如果引入的模块不在node_modules里面，走这个属性的配置</span></span><br><span class="line">            &#125;, <span class="comment">// 缓存组，可以将多个库、模块一起进行分析打包到 vendors 或者 default</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>详见官网：<a href="https://www.webpackjs.com/plugins/split-chunks-plugin/#configuration" target="_blank" rel="noopener">https://www.webpackjs.com/plugins/split-chunks-plugin/#configuration</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/29/npm-%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -697,14 +786,14 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
