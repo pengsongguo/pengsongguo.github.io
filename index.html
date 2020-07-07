@@ -198,7 +198,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-30 16:31:54" itemprop="dateModified" datetime="2020-06-30T16:31:54+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-07 20:01:12" itemprop="dateModified" datetime="2020-07-07T20:01:12+08:00">2020-07-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -221,7 +221,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="SplitChunksPlugin"><a href="#SplitChunksPlugin" class="headerlink" title="SplitChunksPlugin"></a>SplitChunksPlugin</h1><p>CommonsChunkPlugin 已经从 webpack v4 legato 中移除。想要了解在最新版本中如何处理 chunk，请查看 SplitChunksPlugin。</p>
+          <h1 id="SplitChunksPlugin"><a href="#SplitChunksPlugin" class="headerlink" title="SplitChunksPlugin"></a>SplitChunksPlugin</h1><p>官方文档表示，CommonsChunkPlugin 已经从 webpack v4 legato 中移除。而是建议使用 SplitChunksPlugin 来代替 CommonsChunkPlugin。</p>
 <p>官方推荐的做法是采用 SplitChunksPlugin 配置，来实现代码的拆分。较新版本的 webpack 中，如果采用之前配置 CommonsChunkPlugin 的方法，会报错，找不到该插件。</p>
 <p>通过将公共模块拆出来，最终合成的文件能够在最开始的时候加载一次，便存到缓存中供后续使用。 这个带来速度上的提升，因为浏览器会迅速将公共的代码从缓存中取出来，而不是每次访问一个新页面时，再去加载一个更大的文件。</p>
 <p><code>optimization.splitChunks</code>  有默认的配置项，如果在配置文件中开启了该属性，但是没有配置任何参数的话，也是起作用的，因为该属性有默认配置项。例如：</p>
