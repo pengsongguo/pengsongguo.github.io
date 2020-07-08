@@ -20,17 +20,20 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="郭鹏松的个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Albert Guo">
-<meta property="og:url" content="http://yoursite.com/archives/2019/12/index.html">
+  <meta name="description" content="不同于 vue ，react 本身不支持双向数据绑定，但是可以使用 react 的双向操作 state，来获取设置状态值数据，实现绑定。 1234567891011121314151617181920212223242526import React, &amp;#123;Component&amp;#125; from &#39;react&#39;;export default class Demo exten">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react实现简单双向数据绑定">
+<meta property="og:url" content="http://yoursite.com/2019/03/08/react%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A/index.html">
 <meta property="og:site_name" content="Albert Guo">
-<meta property="og:description" content="郭鹏松的个人博客">
+<meta property="og:description" content="不同于 vue ，react 本身不支持双向数据绑定，但是可以使用 react 的双向操作 state，来获取设置状态值数据，实现绑定。 1234567891011121314151617181920212223242526import React, &amp;#123;Component&amp;#125; from &#39;react&#39;;export default class Demo exten">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-03-08T12:26:37.000Z">
+<meta property="article:modified_time" content="2020-07-08T12:42:04.933Z">
 <meta property="article:author" content="Albert Guo">
+<meta property="article:tag" content="react">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/archives/2019/12/">
+<link rel="canonical" href="http://yoursite.com/2019/03/08/react%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A/">
 
 
 <script id="page-configurations">
@@ -38,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | Albert Guo</title>
+  <title>react实现简单双向数据绑定 | Albert Guo</title>
   
 
 
@@ -161,50 +164,89 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 6 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/08/react%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="Albert Guo">
+      <meta itemprop="description" content="郭鹏松的个人博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Albert Guo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          react实现简单双向数据绑定
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-08 20:26:37" itemprop="dateCreated datePublished" datetime="2019-03-08T20:26:37+08:00">2019-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-08 20:42:04" itemprop="dateModified" datetime="2020-07-08T20:42:04+08:00">2020-07-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2019</span>
+        <p>不同于 vue ，react 本身不支持双向数据绑定，但是可以使用 react 的双向操作 state，来获取设置状态值数据，实现绑定。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123;Component&#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">export default class Demo extends Component &#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state &#x3D; &#123;</span><br><span class="line">            userName:&#39;AlbertGuo&#39;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    getInputValue(state, e) &#123;</span><br><span class="line">        let obj &#x3D; &#123;&#125;</span><br><span class="line">        let iptVal &#x3D; e.target.value</span><br><span class="line">        obj[state] &#x3D; iptVal</span><br><span class="line">        this.setState(obj);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        const &#123;</span><br><span class="line">            userName</span><br><span class="line">        &#125; &#x3D; this.state;</span><br><span class="line">        return (&lt;div id&#x3D;&quot;Demo&quot;&gt;</span><br><span class="line">          &lt;input onInput&#x3D;&#123;this.getInputValue.bind(this, &#39;userName&#39;)&#125; placeholder&#x3D;&#39;请输入内容&#39; defaultValue&#x3D;&#123;userName&#125;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-12-15T20:38:22+08:00"
-              content="2019-12-15">
-          12-15
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/react/" rel="tag"># react</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/12/15/postcss-loader-%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E6%A0%B7%E5%BC%8F%E5%89%8D%E7%BC%80/" itemprop="url">
-            <span itemprop="name">postcss-loader 自动添加样式前缀</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/08/29/git-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" rel="prev" title="git 基本使用">
+      <i class="fa fa-chevron-left"></i> git 基本使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/29/npm-%E4%BD%BF%E7%94%A8/" rel="next" title="npm 使用教程">
+      npm 使用教程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
