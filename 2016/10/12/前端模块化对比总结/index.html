@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文部分摘录自 阮一峰 老师博客，参考地址：https:&#x2F;&#x2F;es6.ruanyifeng.com&#x2F;?search&#x3D;set&amp;x&#x3D;0&amp;y&#x3D;0#docs&#x2F;module部分收集自网络，仅供学习参考，不可作为商业用途。  历史历史上，JavaScript 一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。 在 ES6 之前社区制定了一些模块加">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端模块化对比总结">
+<meta property="og:url" content="http://yoursite.com/2016/10/12/%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Albert Guo">
+<meta property="og:description" content="本文部分摘录自 阮一峰 老师博客，参考地址：https:&#x2F;&#x2F;es6.ruanyifeng.com&#x2F;?search&#x3D;set&amp;x&#x3D;0&amp;y&#x3D;0#docs&#x2F;module部分收集自网络，仅供学习参考，不可作为商业用途。  历史历史上，JavaScript 一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。 在 ES6 之前社区制定了一些模块加">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-10-12T08:31:38.000Z">
+<meta property="article:modified_time" content="2020-07-12T08:33:23.006Z">
+<meta property="article:author" content="Albert Guo">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2016/10/12/%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>前端模块化对比总结 | Albert Guo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Albert Guo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-bars fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-address-card fa-fw"></i>个人简介</a>
+
+  </li>
+        <li class="menu-item menu-item-webpack">
+
+    <a href="/webpack/" rel="section"><i class="fa fa-bookmark fa-fw"></i>webpack</a>
+
+  </li>
+        <li class="menu-item menu-item-javascript">
+
+    <a href="/JavaScript/" rel="section"><i class="fa fa-bookmark fa-fw"></i>ECMAScript 5.1</a>
+
+  </li>
+        <li class="menu-item menu-item-ecmascript6">
+
+    <a href="/ECMAScript6/" rel="section"><i class="fa fa-bookmark fa-fw"></i>ECMAScript 6</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/12/%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="Albert Guo">
+      <meta itemprop="description" content="郭鹏松的个人博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Albert Guo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前端模块化对比总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-10-12 16:31:38" itemprop="dateCreated datePublished" datetime="2016-10-12T16:31:38+08:00">2016-10-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-12 16:33:23" itemprop="dateModified" datetime="2020-07-12T16:33:23+08:00">2020-07-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本文部分摘录自 <strong>阮一峰</strong> 老师博客，参考地址：<a href="https://es6.ruanyifeng.com/?search=set&amp;x=0&amp;y=0#docs/module" target="_blank" rel="noopener">https://es6.ruanyifeng.com/?search=set&amp;x=0&amp;y=0#docs/module</a><br>部分收集自网络，仅供学习参考，不可作为商业用途。</p>
+</blockquote>
+<h1 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h1><p>历史上，JavaScript 一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。</p>
+<p>在 ES6 之前社区制定了一些模块加载方案，主要有 CJS、AMD、UMD，后来 ES6 诞生了 ESM 。还有一些其他模块化加载方案，但我们只讨论这几种用的范围比较广的。</p>
+<h1 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>有的地方也叫 CJS，CJS 是 CommonJS 的缩写。</p>
+<p>它是一种服务器端模块化的规范，<code>node.js</code> 的模块系统，就是典型参照 <code>CommonJS</code> 规范实现的。</p>
+<p>它有几个特点：</p>
+<ul>
+<li>所有代码都运行在模块作用域，不会污染全局作用域。</li>
+<li>模块可以多次加载，但是只会在第一次加载时运行一次，然后运行结果就被缓存了，以后再加载，就直接读取缓存结果。要想让模块再次运行，必须清除缓存。</li>
+<li>模块加载的顺序，按照其在代码中出现的顺序</li>
+</ul>
+<p>CommonJS分为三部分：</p>
+<ul>
+<li>require 模块加载</li>
+<li>exports 模块导出</li>
+<li>module 模块本身</li>
+</ul>
+<p>根据规范一个单独的 JS 文件就是一个 <code>module</code>，每个单独的 <code>module</code> 是一个单独的作用域。也就是说在一个文件里定义的变量和函数都是私有，对其他文件不可见，除非用 <code>exports</code> 导出了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;importing </span><br><span class="line">const doSomething &#x3D; require(&#39;.&#x2F;doSomething.js&#39;); </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;exporting</span><br><span class="line">module.exports &#x3D; function doSomething(n) &#123;</span><br><span class="line">  &#x2F;&#x2F; do something</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>CommonJS</code> 中，有一个全局性方法 <code>require()</code> ，用于加载模块。假定有一个数学模块 <code>math.js</code> ，就可以像下面这样加载。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var math &#x3D; require(&#39;math&#39;);</span><br></pre></td></tr></table></figure>
+
+<p>然后，就可以调用模块提供的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var math &#x3D; require(&#39;math&#39;);</span><br><span class="line">math.add(2,3); &#x2F;&#x2F; 5</span><br></pre></td></tr></table></figure>
+
+<p>但是，由于一个重大的局限，使得 <code>CommonJS</code> 规范不适用于浏览器环境。上述代码，如果在浏览器中运行，会有一个很大的问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var math &#x3D; require(&#39;math&#39;);</span><br><span class="line">math.add(2, 3);</span><br></pre></td></tr></table></figure>
+
+<p>第二行 <code>math.add(2, 3)</code>，在第一行 <code>require(&#39;math&#39;)</code> 之后运行，因此必须等 <code>math.js</code> 加载完成。也就是说，如果加载时间很长，整个应用就会停在那里等。</p>
+<p>这对服务器端不是一个问题，因为所有的模块都存放在本地硬盘，可以同步加载完成，等待时间就是硬盘的读取时间。但是，对于浏览器，这却是一个大问题，因为模块都放在服务器端，等待时间取决于网速的快慢，可能要等很长时间，浏览器处于”假死”状态。</p>
+<p>因此，浏览器端的模块，不能采用”同步加载”，只能采用”异步加载”。这就是 AMD 规范诞生的背景。</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>服务器端模块便于重用</li>
+<li>NPM 中已经有将近20万个可以使用模块包</li>
+<li>简单并容易使用</li>
+</ul>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li>同步的模块加载方式不适合在浏览器环境中，同步意味着阻塞加载，浏览器资源是异步加载的</li>
+<li>不能非阻塞的并行加载多个模块</li>
+</ul>
+<h2 id="实现方案"><a href="#实现方案" class="headerlink" title="实现方案"></a>实现方案</h2><ul>
+<li>服务器端的 <code>Node.js</code></li>
+<li><code>Browserify</code>(浏览器端的 CommonJS 实现，可以使用 NPM 的模块，但是编译打包后的文件体积可能很大)</li>
+<li><code>modules-webmake</code>(类似 <code>Browserify</code>，还不如 <code>Browserify</code> 灵活)</li>
+<li><code>wreq</code>(<code>Browserify</code> 的前身)</li>
+</ul>
+<h1 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h1><h2 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h2><p>AMD（Asynchronous Module Definition）采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">define(&quot;module&quot;, [&quot;dep1&quot;, &quot;dep2&quot;], function(d1, d2) &#123;</span><br><span class="line">  return someExportedValue;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">require([&quot;module&quot;, &quot;..&#x2F;file&quot;], function(module, file) &#123; &#x2F;* ... *&#x2F; &#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>适合在浏览器环境中异步加载模块</li>
+<li>可以并行加载多个模块</li>
+</ul>
+<h2 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li>提高了开发成本，代码的阅读和书写比较困难，模块定义方式的语义不顺畅</li>
+<li>不符合通用的模块化思维方式，是一种妥协的实现</li>
+</ul>
+<h2 id="实现方案-1"><a href="#实现方案-1" class="headerlink" title="实现方案"></a>实现方案</h2><ul>
+<li><code>RequireJS</code></li>
+<li><code>curl</code></li>
+</ul>
+<h1 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h1><h2 id="概述-2"><a href="#概述-2" class="headerlink" title="概述"></a>概述</h2><p>CMD（Common Module Definition）规范和 AMD 很相似，尽量保持简单，并与 CommonJS 和 Node.js 的 Modules 规范保持了很大的兼容性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">define(function(require, exports, module) &#123;</span><br><span class="line">  var $ &#x3D; require(&#39;jquery&#39;);</span><br><span class="line">  var Spinning &#x3D; require(&#39;.&#x2F;spinning&#39;);</span><br><span class="line">  exports.doSomething &#x3D; ...</span><br><span class="line">  module.exports &#x3D; ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>依赖就近，延迟执行</li>
+<li>可以很容易在 Node.js 中运行</li>
+</ul>
+<h2 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li>依赖 SPM 打包，模块的加载逻辑偏重</li>
+</ul>
+<h2 id="实现方案-2"><a href="#实现方案-2" class="headerlink" title="实现方案"></a>实现方案</h2><ul>
+<li>Sea.js</li>
+<li>coolie</li>
+</ul>
+<h1 id="UMD"><a href="#UMD" class="headerlink" title="UMD"></a>UMD</h1><h2 id="概述-3"><a href="#概述-3" class="headerlink" title="概述"></a>概述</h2><p>UMD（Universal Module Definition）规范类似于兼容 CommonJS 和 AMD 的语法糖，是模块定义的跨平台解决方案。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(function (global, factory) &#123;</span><br><span class="line">    typeof exports &#x3D;&#x3D;&#x3D; &#39;object&#39; &amp;&amp; typeof module !&#x3D;&#x3D; &#39;undefined&#39; ? module.exports &#x3D; factory() :</span><br><span class="line">    typeof define &#x3D;&#x3D;&#x3D; &#39;function&#39; &amp;&amp; define.amd ? define(factory) :</span><br><span class="line">    (global.libName &#x3D; factory());</span><br><span class="line">&#125;(this, (function () &#123; &#39;use strict&#39;;&#125;)));</span><br></pre></td></tr></table></figure>
+
+<p>可以理解 UMD 实际上就是 <code>AMD + CommonJS + 全局变量</code> 这三种风格的结合。</p>
+<p>这段代码就是对当前运行环境的判断，如果是 Node 环境 就是使用 CommonJs 规范， 如果不是就判断是否为 AMD 环境， 最后导出全局变量<br>有了 UMD 后我们的代码和同时运行在 Node 和 浏览器上<br>所以现在前端大多数的库最后打包都使用的是 UMD 规范。</p>
+<h1 id="ESM"><a href="#ESM" class="headerlink" title="ESM"></a>ESM</h1><h2 id="概述-4"><a href="#概述-4" class="headerlink" title="概述"></a>概述</h2><p>EcmaScript6 标准增加了 JavaScript 语言层面的模块体系定义。ES6 模块的设计思想是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。CommonJS 和 AMD 模块，都只能在运行时确定这些东西。比如，CommonJS 模块就是对象，输入时必须查找对象属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import React from &#39;react&#39;;</span><br><span class="line">import &#123;foo, bar&#125; from &#39;.&#x2F;myLib&#39;;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">export default function() &#123;</span><br><span class="line">  &#x2F;&#x2F; your Function</span><br><span class="line">&#125;;</span><br><span class="line">export const function1() &#123;...&#125;;</span><br><span class="line">export const function2() &#123;...&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="优点-3"><a href="#优点-3" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>容易进行静态分析</li>
+<li>面向未来的 EcmaScript 标准</li>
+</ul>
+<h2 id="缺点-3"><a href="#缺点-3" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li>原生浏览器端还没有实现该标准</li>
+<li>全新的命令字，新版的 Node.js 才支持</li>
+</ul>
+<h2 id="实现方案-3"><a href="#实现方案-3" class="headerlink" title="实现方案"></a>实现方案</h2><ul>
+<li>Babel</li>
+</ul>
+<h1 id="CommonJs-和-ES6-Module-的区别"><a href="#CommonJs-和-ES6-Module-的区别" class="headerlink" title="CommonJs 和 ES6 Module 的区别"></a>CommonJs 和 ES6 Module 的区别</h1><ul>
+<li>CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用</li>
+<li>CommonJS 模块是运行时加载，ES6 模块是编译时输出接口</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2018/02/10/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3-http-%E4%B8%8E-https/" rel="next" title="通俗理解 http 与 https">
+      通俗理解 http 与 https <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#历史"><span class="nav-number">1.</span> <span class="nav-text">历史</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CommonJS"><span class="nav-number">2.</span> <span class="nav-text">CommonJS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优点"><span class="nav-number">2.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缺点"><span class="nav-number">2.3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现方案"><span class="nav-number">2.4.</span> <span class="nav-text">实现方案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AMD"><span class="nav-number">3.</span> <span class="nav-text">AMD</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述-1"><span class="nav-number">3.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优点-1"><span class="nav-number">3.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缺点-1"><span class="nav-number">3.3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现方案-1"><span class="nav-number">3.4.</span> <span class="nav-text">实现方案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CMD"><span class="nav-number">4.</span> <span class="nav-text">CMD</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述-2"><span class="nav-number">4.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优点-2"><span class="nav-number">4.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缺点-2"><span class="nav-number">4.3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现方案-2"><span class="nav-number">4.4.</span> <span class="nav-text">实现方案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UMD"><span class="nav-number">5.</span> <span class="nav-text">UMD</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述-3"><span class="nav-number">5.1.</span> <span class="nav-text">概述</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ESM"><span class="nav-number">6.</span> <span class="nav-text">ESM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述-4"><span class="nav-number">6.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优点-3"><span class="nav-number">6.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缺点-3"><span class="nav-number">6.3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现方案-3"><span class="nav-number">6.4.</span> <span class="nav-text">实现方案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CommonJs-和-ES6-Module-的区别"><span class="nav-number">7.</span> <span class="nav-text">CommonJs 和 ES6 Module 的区别</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Albert Guo"
+      src="/uploads/avatar.png">
+  <p class="site-author-name" itemprop="name">Albert Guo</p>
+  <div class="site-description" itemprop="description">郭鹏松的个人博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:albert-guo@outlook.com" title="E-Mail → mailto:albert-guo@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Albert Guo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
