@@ -198,7 +198,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-14 17:38:31" itemprop="dateModified" datetime="2020-07-14T17:38:31+08:00">2020-07-14</time>
+                <time title="修改时间：2020-07-14 17:50:13" itemprop="dateModified" datetime="2020-07-14T17:50:13+08:00">2020-07-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -223,7 +223,7 @@
       
           <p>最近接到产品一个需求，需要仿照支付宝的理财的一个轮播图，做一个类似的效果。</p>
 <p>我打开了支付宝理财界面的轮播图效果如下：</p>
-<p><img src="https://note.youdao.com/yws/public/resource/dee7b4e62a5aae2d62413ccf504951f9/xmlnote/01ECF78A223A499FB71CA8CAE8F47F49/5756" alt="支付宝理财轮播图"></p>
+<p><img src="https://inews.gtimg.com/newsapp_ls/0/12087680123/0" alt="支付宝理财轮播图"></p>
 <p>分析过后，这个轮播图的特殊之处在于：</p>
 <ul>
 <li>第一张轮播图时候，左侧不展示内容，右侧漏出第二张轮播图，左右不对称；</li>
@@ -235,7 +235,7 @@
 <p>尝试了修改插件默认样式，但是渲染时会被覆盖，而且污染原有DOM样式，效果不理想。又从 Swiper 官方声明周期入手，尝试用 JavaScript 改写行内样式，但是效果也不理想。</p>
 <p>自己重新写插件的话，时间来不及，而且很难写出 Swiper 这样功能丰富好用的插件了。</p>
 <p>于是研究了官方文档，发现有几个参数，可以实现这种方式。但是需要 Swiper5 版本的支持。</p>
-<p><img src="https://note.youdao.com/yws/public/resource/dee7b4e62a5aae2d62413ccf504951f9/xmlnote/7599DF34D8FE482794CFD95A38C62AEB/5779" alt="Swiper 版本支持"></p>
+<p><img src="https://inews.gtimg.com/newsapp_ls/0/12087687501/0" alt="Swiper 版本支持"></p>
 <p>于是，对项目的 package.json 文件中 Swiper 进行了升级，然后相关参数设置如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">this.swiper &#x3D; new Swiper(&#39;.study-swiper&#39;, &#123;</span><br><span class="line">          slidesPerView: 1.1,&#x2F;&#x2F;设置slider容器能够同时显示的slides数量(carousel模式)。</span><br><span class="line">          spaceBetween: 10,&#x2F;&#x2F;在slide之间设置距离（单位px）。</span><br><span class="line">          direction: &#39;horizontal&#39;,</span><br><span class="line">          loop: false,</span><br><span class="line">          centeredSlides: true,</span><br><span class="line">          centeredSlidesBounds: true,&#x2F;&#x2F;开启这个参数，当slides的总数小于slidesPerView时，slides居中。</span><br><span class="line">          initialSlide: 0,</span><br><span class="line">          on: &#123;</span><br><span class="line">              fromEdge: function () &#123;</span><br><span class="line">                  _this.setState(&#123; curIndex: this.realIndex &#125;, () &#x3D;&gt; &#123;</span><br><span class="line">                      _this.navScroll()</span><br><span class="line">                  &#125;)</span><br><span class="line">              &#125;,</span><br><span class="line">              slideChange: function () &#123;</span><br><span class="line">                  _this.setState(&#123; curIndex: this.realIndex &#125;, () &#x3D;&gt; &#123;</span><br><span class="line">                      _this.navScroll()</span><br><span class="line">                  &#125;)</span><br><span class="line">              &#125;,</span><br><span class="line">              reachBeginning: function () &#123;</span><br><span class="line">                  _this.setState(&#123; curIndex: 0 &#125;, () &#x3D;&gt; &#123;</span><br><span class="line">                      _this.navScroll()</span><br><span class="line">                  &#125;)</span><br><span class="line">              &#125;,</span><br><span class="line">              reachEnd: function () &#123;</span><br><span class="line">                  _this.setState(&#123; curIndex: _this.state.cardList.length - 1 &#125;, () &#x3D;&gt; &#123;</span><br><span class="line">                      _this.navScroll()</span><br><span class="line">                  &#125;)</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
@@ -243,7 +243,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">navScroll &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">    let navScrollEle &#x3D; document.querySelector(&#39;.topicEntry__nav__wrap&#39;),</span><br><span class="line">        navItemDoms &#x3D; document.querySelectorAll(&#39;.topicEntry__nav__inner span&#39;),</span><br><span class="line">        &#123; curIndex &#125; &#x3D; this.state,</span><br><span class="line">        targetDom &#x3D; navItemDoms[curIndex]</span><br><span class="line">        </span><br><span class="line">    if (!targetDom) return;</span><br><span class="line"></span><br><span class="line">    let xDis &#x3D; targetDom.offsetLeft,</span><br><span class="line">        targetWth &#x3D; targetDom.getBoundingClientRect().width,</span><br><span class="line">        winWth &#x3D; window.innerWidth </span><br><span class="line">navScrollEle.scroll(xDis + targetWth &#x2F; 2 - winWth &#x2F; 2, 0)</span><br></pre></td></tr></table></figure>
 
 <p>最终完美实现的效果图：</p>
-<p><img src="https://note.youdao.com/yws/public/resource/dee7b4e62a5aae2d62413ccf504951f9/xmlnote/E5D7A928624A4A98BBA698CC732A2E7B/5758" alt="效果图"></p>
+<p><img src="https://inews.gtimg.com/newsapp_ls/0/12087691117/0" alt="效果图"></p>
 
       
     </div>
