@@ -28,7 +28,7 @@
 <meta property="og:description" content="本文部分摘录自 阮一峰 老师博客，参考地址：https:&#x2F;&#x2F;es6.ruanyifeng.com&#x2F;?search&#x3D;set&amp;x&#x3D;0&amp;y&#x3D;0#docs&#x2F;module部分收集自网络，仅供学习参考，不可作为商业用途。  历史历史上，JavaScript 一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。 在 ES6 之前社区制定了一些模块加">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-10-12T08:31:38.000Z">
-<meta property="article:modified_time" content="2020-07-12T08:33:23.006Z">
+<meta property="article:modified_time" content="2020-07-15T11:40:23.206Z">
 <meta property="article:author" content="Albert Guo">
 <meta name="twitter:card" content="summary">
 
@@ -200,7 +200,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-12 16:33:23" itemprop="dateModified" datetime="2020-07-12T16:33:23+08:00">2020-07-12</time>
+                <time title="修改时间：2020-07-15 19:40:23" itemprop="dateModified" datetime="2020-07-15T19:40:23+08:00">2020-07-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -228,19 +228,18 @@
 </blockquote>
 <h1 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h1><p>历史上，JavaScript 一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。</p>
 <p>在 ES6 之前社区制定了一些模块加载方案，主要有 CJS、AMD、UMD，后来 ES6 诞生了 ESM 。还有一些其他模块化加载方案，但我们只讨论这几种用的范围比较广的。</p>
-<h1 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>有的地方也叫 CJS，CJS 是 CommonJS 的缩写。</p>
-<p>它是一种服务器端模块化的规范，<code>node.js</code> 的模块系统，就是典型参照 <code>CommonJS</code> 规范实现的。</p>
+<h1 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>有的地方也叫 CJS，CJS 是 CommonJS 的缩写。是一种服务器端模块化的规范，<code>node.js</code> 的模块系统，就是典型使用 <code>CommonJS</code> 规范实现的。</p>
 <p>它有几个特点：</p>
 <ul>
-<li>所有代码都运行在模块作用域，不会污染全局作用域。</li>
-<li>模块可以多次加载，但是只会在第一次加载时运行一次，然后运行结果就被缓存了，以后再加载，就直接读取缓存结果。要想让模块再次运行，必须清除缓存。</li>
+<li>所有代码都运行在模块作用域，不会污染全局作用域</li>
+<li>模块可以多次加载，但是只会在第一次加载时运行一次，然后运行结果就被缓存了，以后再加载，就直接读取缓存结果，要想让模块再次运行，必须清除缓存</li>
 <li>模块加载的顺序，按照其在代码中出现的顺序</li>
 </ul>
-<p>CommonJS分为三部分：</p>
+<p>CommonJS 分为三部分：</p>
 <ul>
-<li>require 模块加载</li>
-<li>exports 模块导出</li>
-<li>module 模块本身</li>
+<li><code>require</code> 模块加载</li>
+<li><code>exports</code> 模块导出</li>
+<li><code>module</code> 模块本身</li>
 </ul>
 <p>根据规范一个单独的 JS 文件就是一个 <code>module</code>，每个单独的 <code>module</code> 是一个单独的作用域。也就是说在一个文件里定义的变量和函数都是私有，对其他文件不可见，除非用 <code>exports</code> 导出了。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;importing </span><br><span class="line">const doSomething &#x3D; require(&#39;.&#x2F;doSomething.js&#39;); </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;exporting</span><br><span class="line">module.exports &#x3D; function doSomething(n) &#123;</span><br><span class="line">  &#x2F;&#x2F; do something</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -255,11 +254,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var math &#x3D; require(&#39;math&#39;);</span><br><span class="line">math.add(2, 3);</span><br></pre></td></tr></table></figure>
 
 <p>第二行 <code>math.add(2, 3)</code>，在第一行 <code>require(&#39;math&#39;)</code> 之后运行，因此必须等 <code>math.js</code> 加载完成。也就是说，如果加载时间很长，整个应用就会停在那里等。</p>
-<p>这对服务器端不是一个问题，因为所有的模块都存放在本地硬盘，可以同步加载完成，等待时间就是硬盘的读取时间。但是，对于浏览器，这却是一个大问题，因为模块都放在服务器端，等待时间取决于网速的快慢，可能要等很长时间，浏览器处于”假死”状态。</p>
-<p>因此，浏览器端的模块，不能采用”同步加载”，只能采用”异步加载”。这就是 AMD 规范诞生的背景。</p>
+<p>这对服务器端不是一个问题，因为所有的模块都存放在本地硬盘，可以同步加载完成，等待时间就是硬盘的读取时间。但是，对于浏览器，这却是一个大问题，因为模块都放在服务器端，等待时间取决于网速的快慢，可能要等很长时间，浏览器处于“假死”状态。</p>
+<p>因此，浏览器端的模块，不能采用“同步加载”，只能采用“异步加载”。这就是 AMD 规范诞生的背景。</p>
 <h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
 <li>服务器端模块便于重用</li>
-<li>NPM 中已经有将近20万个可以使用模块包</li>
+<li>NPM 中已经有将几十万个可以使用模块包</li>
 <li>简单并容易使用</li>
 </ul>
 <h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ul>
@@ -305,8 +304,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(function (global, factory) &#123;</span><br><span class="line">    typeof exports &#x3D;&#x3D;&#x3D; &#39;object&#39; &amp;&amp; typeof module !&#x3D;&#x3D; &#39;undefined&#39; ? module.exports &#x3D; factory() :</span><br><span class="line">    typeof define &#x3D;&#x3D;&#x3D; &#39;function&#39; &amp;&amp; define.amd ? define(factory) :</span><br><span class="line">    (global.libName &#x3D; factory());</span><br><span class="line">&#125;(this, (function () &#123; &#39;use strict&#39;;&#125;)));</span><br></pre></td></tr></table></figure>
 
 <p>可以理解 UMD 实际上就是 <code>AMD + CommonJS + 全局变量</code> 这三种风格的结合。</p>
-<p>这段代码就是对当前运行环境的判断，如果是 Node 环境 就是使用 CommonJs 规范， 如果不是就判断是否为 AMD 环境， 最后导出全局变量<br>有了 UMD 后我们的代码和同时运行在 Node 和 浏览器上<br>所以现在前端大多数的库最后打包都使用的是 UMD 规范。</p>
-<h1 id="ESM"><a href="#ESM" class="headerlink" title="ESM"></a>ESM</h1><h2 id="概述-4"><a href="#概述-4" class="headerlink" title="概述"></a>概述</h2><p>EcmaScript6 标准增加了 JavaScript 语言层面的模块体系定义。ES6 模块的设计思想是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。CommonJS 和 AMD 模块，都只能在运行时确定这些东西。比如，CommonJS 模块就是对象，输入时必须查找对象属性。</p>
+<p>这段代码就是对当前运行环境的判断，如果是 Node 环境 就是使用 CommonJs 规范， 如果不是就判断是否为 AMD 环境， 最后导出全局变量。有了 UMD 后我们的代码和同时运行在 Node 和 浏览器上<br>所以现在前端大多数的库最后打包都使用的是 UMD 规范。</p>
+<h1 id="ESM"><a href="#ESM" class="headerlink" title="ESM"></a>ESM</h1><h2 id="概述-4"><a href="#概述-4" class="headerlink" title="概述"></a>概述</h2><p>ES6 标准增加了 JavaScript 语言层面的模块体系定义。ES6 模块的设计思想是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。CommonJS 和 AMD 模块，都只能在运行时确定这些东西。比如，CommonJS 模块就是对象，输入时必须查找对象属性。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import React from &#39;react&#39;;</span><br><span class="line">import &#123;foo, bar&#125; from &#39;.&#x2F;myLib&#39;;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">export default function() &#123;</span><br><span class="line">  &#x2F;&#x2F; your Function</span><br><span class="line">&#125;;</span><br><span class="line">export const function1() &#123;...&#125;;</span><br><span class="line">export const function2() &#123;...&#125;;</span><br></pre></td></tr></table></figure>
 
 <h2 id="优点-3"><a href="#优点-3" class="headerlink" title="优点"></a>优点</h2><ul>
@@ -315,7 +314,7 @@
 </ul>
 <h2 id="缺点-3"><a href="#缺点-3" class="headerlink" title="缺点"></a>缺点</h2><ul>
 <li>原生浏览器端还没有实现该标准</li>
-<li>全新的命令字，新版的 Node.js 才支持</li>
+<li>全新的命令，新版的 Node.js 才支持</li>
 </ul>
 <h2 id="实现方案-3"><a href="#实现方案-3" class="headerlink" title="实现方案"></a>实现方案</h2><ul>
 <li>Babel</li>
