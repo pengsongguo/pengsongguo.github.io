@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文部分摘录自 JavaScript官方教程参考地址：https:&#x2F;&#x2F;wangdoc.com&#x2F;javascript&#x2F;oop&#x2F;this.html#functionprototypebind     最近接触了 React ，里面的方法需要绑定 this 的指向问题，官方推荐用 bind 进行绑定。所以整理学习了一下老生常谈的问题，JavaScript 的 this 的指向和绑定。 this 关键字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="老生常谈——call,apply,bind">
+<meta property="og:url" content="http://yoursite.com/2017/12/15/%E8%80%81%E7%94%9F%E5%B8%B8%E8%B0%88%E2%80%94%E2%80%94call-apply-bind/index.html">
+<meta property="og:site_name" content="Albert Guo">
+<meta property="og:description" content="本文部分摘录自 JavaScript官方教程参考地址：https:&#x2F;&#x2F;wangdoc.com&#x2F;javascript&#x2F;oop&#x2F;this.html#functionprototypebind     最近接触了 React ，里面的方法需要绑定 this 的指向问题，官方推荐用 bind 进行绑定。所以整理学习了一下老生常谈的问题，JavaScript 的 this 的指向和绑定。 this 关键字">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-12-15T11:41:39.000Z">
+<meta property="article:modified_time" content="2020-07-15T11:52:04.647Z">
+<meta property="article:author" content="Albert Guo">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2017/12/15/%E8%80%81%E7%94%9F%E5%B8%B8%E8%B0%88%E2%80%94%E2%80%94call-apply-bind/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>老生常谈——call,apply,bind | Albert Guo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Albert Guo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-bars fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-address-card fa-fw"></i>个人简介</a>
+
+  </li>
+        <li class="menu-item menu-item-webpack">
+
+    <a href="/webpack/" rel="section"><i class="fa fa-bookmark fa-fw"></i>webpack</a>
+
+  </li>
+        <li class="menu-item menu-item-javascript">
+
+    <a href="/JavaScript/" rel="section"><i class="fa fa-bookmark fa-fw"></i>ECMAScript 5.1</a>
+
+  </li>
+        <li class="menu-item menu-item-ecmascript6">
+
+    <a href="/ECMAScript6/" rel="section"><i class="fa fa-bookmark fa-fw"></i>ECMAScript 6</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/15/%E8%80%81%E7%94%9F%E5%B8%B8%E8%B0%88%E2%80%94%E2%80%94call-apply-bind/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="Albert Guo">
+      <meta itemprop="description" content="郭鹏松的个人博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Albert Guo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          老生常谈——call,apply,bind
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-12-15 19:41:39" itemprop="dateCreated datePublished" datetime="2017-12-15T19:41:39+08:00">2017-12-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-15 19:52:04" itemprop="dateModified" datetime="2020-07-15T19:52:04+08:00">2020-07-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本文部分摘录自 <strong>JavaScript官方教程</strong><br>参考地址：<a href="https://wangdoc.com/javascript/oop/this.html#functionprototypebind" target="_blank" rel="noopener">https://wangdoc.com/javascript/oop/this.html#functionprototypebind</a>   </p>
+</blockquote>
+<p>最近接触了 React ，里面的方法需要绑定 this 的指向问题，官方推荐用 bind 进行绑定。所以整理学习了一下老生常谈的问题，JavaScript 的 this 的指向和绑定。</p>
+<h2 id="this-关键字"><a href="#this-关键字" class="headerlink" title="this 关键字"></a>this 关键字</h2><p> <code>this</code> 就是属性或方法“当前”所在的对象。不管是什么场合，<code>this</code> 都有一个共同点：它总是返回一个对象。</p>
+<p> 在 JavaScript 语言中，一切皆对象，运行环境也是对象，所以函数都是在某个对象之中运行，<code>this</code> 就是函数运行时所在的对象（环境）。这本来不会让用户糊涂，但是 JavaScript 支持运行环境动态切换，也就是说，<code>this</code> 的指向时动态的，没办法事先确定到底指向哪个对象，这才是让人困惑的地方。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function f() &#123;</span><br><span class="line">  return &#39;姓名：&#39;+ this.name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var A &#x3D; &#123;</span><br><span class="line">  name: &#39;张三&#39;,</span><br><span class="line">  describe: f</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var B &#x3D; &#123;</span><br><span class="line">  name: &#39;李四&#39;,</span><br><span class="line">  describe: f</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">A.describe() &#x2F;&#x2F; &quot;姓名：张三&quot;</span><br><span class="line">B.describe() &#x2F;&#x2F; &quot;姓名：李四&quot;</span><br></pre></td></tr></table></figure>
+
+<p> <code>this</code> 使用场合：</p>
+<ul>
+<li><p>全局环境：全局环境使用 <code>this</code> ，它指向的就是顶层对象 <code>window</code>。</p>
+</li>
+<li><p>构造函数：构造函数中的 <code>this</code> ，指的就是实例对象。</p>
+</li>
+<li><p>对象的方法：如果对象的方法里面包含 <code>this</code> , <code>this</code> 的指向就是方法所运行时所在的对象。该方法赋值给另一个对象，就会改变 this 的指向。</p>
+<p><code>this</code> 使用注意点：</p>
+</li>
+<li><p>避免多层 <code>this</code>：由于 <code>this</code> 的指向是不确定的，避免在函数中包含多层 <code>this</code>。</p>
+</li>
+<li><p>避免数组方法中 <code>this</code>：数组的 <code>map</code> 和 <code>foreach</code> 方法，允许提供一个函数作为参数。这个函数内部不应该使用 <code>this</code>。</p>
+</li>
+<li><p>避免回调函数中的 <code>this</code>：回调函数中的 <code>this</code> 往往会改变指向，最好避免使用。</p>
+<h3 id="绑定-this-的方法"><a href="#绑定-this-的方法" class="headerlink" title="绑定 this 的方法"></a>绑定 this 的方法</h3><p>JavaScript 提供了 <code>call、apply、bind</code> 这三个方法，来切换/固定 <code>this</code> 的指向。</p>
+<h4 id="Function-prototype-call"><a href="#Function-prototype-call" class="headerlink" title="Function.prototype.call()"></a>Function.prototype.call()</h4><p>函数实例的 <code>call</code> 方法，可以指定函数内部的 <code>this</code>  指向（即函数执行时所在的作用域），然后在指定的作用域中，调用该函数。</p>
+<p><code>call</code> 方法的参数，应该是一个对象。如果参数为 <code>空、null</code> 和 <code>undefined</code> ，则默认传入全局对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var obj &#x3D; &#123;&#125;;</span><br><span class="line"></span><br><span class="line">var f &#x3D; function () &#123;</span><br><span class="line">  return this;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">f() &#x3D;&#x3D;&#x3D; window &#x2F;&#x2F; true</span><br><span class="line">f.call(obj) &#x3D;&#x3D;&#x3D; obj &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+
+<p><code>call</code> 方法还可以接受多个参数。<code>call</code> 的第一个参数就是 <code>this</code> 所要指向的那个对象，后面的参数则是函数调用时所需的参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func.call(thisValue, arg1, arg2, ...)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function add(a, b) &#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add.call(this, 1, 2) &#x2F;&#x2F; 3</span><br></pre></td></tr></table></figure>
+
+<h4 id="Function-prototype-apply"><a href="#Function-prototype-apply" class="headerlink" title="Function.prototype.apply()"></a>Function.prototype.apply()</h4><p><code>apply</code> 方法的作用与 <code>call</code> 方法类似，也是改变 <code>this</code> 指向，然后再调用该函数。唯一的区别就是，它接收一个数组作为函数执行时的参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func.apply(thisValue, [arg1, arg2, ...])</span><br></pre></td></tr></table></figure>
+
+<h4 id="Function-prototype-bind"><a href="#Function-prototype-bind" class="headerlink" title="Function.prototype.bind()"></a>Function.prototype.bind()</h4><p><code>bind</code> 方法用于将函数体内的 <code>this</code> 绑定到某个对象，然后返回一个新函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var d &#x3D; new Date();</span><br><span class="line">d.getTime() &#x2F;&#x2F; 1481869925657</span><br><span class="line"></span><br><span class="line">var print &#x3D; d.getTime;</span><br><span class="line">print() &#x2F;&#x2F; Uncaught TypeError: this is not a Date object.</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，我们将 <code>d.getTime()</code> 方法赋给变量 <code>print</code>，然后调用 <code>print()</code> 就报错了。这是因为 <code>getTime()</code> 方法内部的 <code>this</code>，绑定 <code>Date</code> 对象的实例，赋给变量 <code>print</code> 以后，内部的 <code>this</code> 已经不指向 <code>Date</code> 对象的实例了。</p>
+<p><code>bind()</code> 方法可以解决这个问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var print &#x3D; d.getTime.bind(d);</span><br><span class="line">print() &#x2F;&#x2F; 1481869925657</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，<code>bind()</code> 方法将 <code>getTime()</code> 方法内部的 <code>this</code> 绑定到 <code>d</code> 对象，这时就可以安全地将这个方法赋值给其他变量了。</p>
+<p><code>bind()</code> 的作用与 <code>call()</code> 和 <code>apply()</code> 一样，都是可以改变函数运行时上下文，区别是 <code>call()</code> 和 <code>apply()</code> 在调用函数之后会立即执行，而 <code>bind()</code> 方法调用并改变函数运行时上下文后，返回一个新的函数，供我们需要时再调用。</p>
+<h3 id="如何选用"><a href="#如何选用" class="headerlink" title="如何选用"></a>如何选用</h3></li>
+<li><p>如果不需要关心具体有多少参数被传入函数，选用 <code>apply()</code>；</p>
+</li>
+<li><p>如果确定函数可接收多少个参数，并且想一目了然表达形参和实参的对应关系，用 <code>call()</code>；</p>
+</li>
+<li><p>如果我们想要将来再调用方法，不需立即得到函数返回结果，则使用 <code>bind()</code>。</p>
+<h3 id="特点总结"><a href="#特点总结" class="headerlink" title="特点总结"></a>特点总结</h3></li>
+<li><p><code>call()</code>、<code>apply()</code> 和 <code>bind()</code> 都是用来改变函数执行时的上下文，可借助它们实现继承；</p>
+</li>
+<li><p><code>call()</code> 和 <code>apply()</code> 唯一区别是参数不一样，<code>call()</code> 是 <code>apply()</code> 的语法糖；</p>
+</li>
+<li><p><code>bind()</code> 是返回一个新函数，供以后调用，而 <code>apply()</code> 和 <code>call()</code> 是立即调用。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/06/12/JavaScript-%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/" rel="prev" title="JavaScript 运行机制详解">
+      <i class="fa fa-chevron-left"></i> JavaScript 运行机制详解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/02/10/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3-http-%E4%B8%8E-https/" rel="next" title="通俗理解 http 与 https">
+      通俗理解 http 与 https <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#this-关键字"><span class="nav-number">1.</span> <span class="nav-text">this 关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#绑定-this-的方法"><span class="nav-number">1.1.</span> <span class="nav-text">绑定 this 的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Function-prototype-call"><span class="nav-number">1.1.1.</span> <span class="nav-text">Function.prototype.call()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Function-prototype-apply"><span class="nav-number">1.1.2.</span> <span class="nav-text">Function.prototype.apply()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Function-prototype-bind"><span class="nav-number">1.1.3.</span> <span class="nav-text">Function.prototype.bind()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何选用"><span class="nav-number">1.2.</span> <span class="nav-text">如何选用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点总结"><span class="nav-number">1.3.</span> <span class="nav-text">特点总结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Albert Guo"
+      src="/uploads/avatar.png">
+  <p class="site-author-name" itemprop="name">Albert Guo</p>
+  <div class="site-description" itemprop="description">郭鹏松的个人博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:albert-guo@outlook.com" title="E-Mail → mailto:albert-guo@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Albert Guo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
