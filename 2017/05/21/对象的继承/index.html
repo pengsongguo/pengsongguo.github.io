@@ -20,30 +20,32 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="郭鹏松的个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Albert Guo">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+  <meta name="description" content="本文部分摘录自网道 JavaScript 教程构造函数非构造函数部分搬运自 阮一峰 博客http:&#x2F;&#x2F;www.ruanyifeng.com&#x2F;blog&#x2F;2010&#x2F;05&#x2F;object-oriented_javascript_inheritance.htmlhttps:&#x2F;&#x2F;wangdoc.com&#x2F;javascript&#x2F;oop&#x2F;prototype.html#prototype-%E5%B1%9E%E6%">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对象的继承">
+<meta property="og:url" content="http://yoursite.com/2017/05/21/%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%A7%E6%89%BF/index.html">
 <meta property="og:site_name" content="Albert Guo">
-<meta property="og:description" content="郭鹏松的个人博客">
+<meta property="og:description" content="本文部分摘录自网道 JavaScript 教程构造函数非构造函数部分搬运自 阮一峰 博客http:&#x2F;&#x2F;www.ruanyifeng.com&#x2F;blog&#x2F;2010&#x2F;05&#x2F;object-oriented_javascript_inheritance.htmlhttps:&#x2F;&#x2F;wangdoc.com&#x2F;javascript&#x2F;oop&#x2F;prototype.html#prototype-%E5%B1%9E%E6%">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-05-21T05:50:51.000Z">
+<meta property="article:modified_time" content="2020-07-22T11:54:22.227Z">
 <meta property="article:author" content="Albert Guo">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/page/2/">
+<link rel="canonical" href="http://yoursite.com/2017/05/21/%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%A7%E6%89%BF/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Albert Guo</title>
+  <title>对象的继承 | Albert Guo</title>
   
 
 
@@ -166,9 +168,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -184,10 +187,9 @@
       <meta itemprop="name" content="Albert Guo">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/05/21/%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%A7%E6%89%BF/" class="post-title-link" itemprop="url">对象的继承</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          对象的继承
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -226,7 +228,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
+        <blockquote>
 <p>本文部分摘录自网道 JavaScript 教程<br>构造函数非构造函数部分搬运自 <em>阮一峰</em> 博客<br><a href="http://www.ruanyifeng.com/blog/2010/05/object-oriented_javascript_inheritance.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2010/05/object-oriented_javascript_inheritance.html</a><br><a href="https://wangdoc.com/javascript/oop/prototype.html#prototype-%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8" target="_blank" rel="noopener">https://wangdoc.com/javascript/oop/prototype.html#prototype-%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8</a>    </p>
 </blockquote>
 <h2 id="对象的继承"><a href="#对象的继承" class="headerlink" title="对象的继承"></a>对象的继承</h2><p>面向对象编程很重要的一个方面，就是对象的继承。A 对象通过继承 B 对象，就能直接拥有 B 对象的所有属性和方法。这对于代码的复用是非常有用的。</p>
@@ -405,340 +407,34 @@
 
 <p>上面代码中，子类S同时继承了父类 M1 和 M2 。这种模式又称为 <code>Mixin</code>（混入）。</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/12/%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://inews.gtimg.com/newsapp_ls/0/12122532695/0">
-      <meta itemprop="name" content="Albert Guo">
-      <meta itemprop="description" content="郭鹏松的个人博客">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Albert Guo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/10/12/%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">前端模块化对比总结</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-10-12 16:31:38" itemprop="dateCreated datePublished" datetime="2016-10-12T16:31:38+08:00">2016-10-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-15 19:40:23" itemprop="dateModified" datetime="2020-07-15T19:40:23+08:00">2020-07-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文部分摘录自 <strong>阮一峰</strong> 老师博客，参考地址：<a href="https://es6.ruanyifeng.com/?search=set&amp;x=0&amp;y=0#docs/module" target="_blank" rel="noopener">https://es6.ruanyifeng.com/?search=set&amp;x=0&amp;y=0#docs/module</a><br>部分收集自网络，仅供学习参考，不可作为商业用途。</p>
-</blockquote>
-<h1 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h1><p>历史上，JavaScript 一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。</p>
-<p>在 ES6 之前社区制定了一些模块加载方案，主要有 CJS、AMD、UMD，后来 ES6 诞生了 ESM 。还有一些其他模块化加载方案，但我们只讨论这几种用的范围比较广的。</p>
-<h1 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>有的地方也叫 CJS，CJS 是 CommonJS 的缩写。是一种服务器端模块化的规范，<code>node.js</code> 的模块系统，就是典型使用 <code>CommonJS</code> 规范实现的。</p>
-<p>它有几个特点：</p>
-<ul>
-<li>所有代码都运行在模块作用域，不会污染全局作用域</li>
-<li>模块可以多次加载，但是只会在第一次加载时运行一次，然后运行结果就被缓存了，以后再加载，就直接读取缓存结果，要想让模块再次运行，必须清除缓存</li>
-<li>模块加载的顺序，按照其在代码中出现的顺序</li>
-</ul>
-<p>CommonJS 分为三部分：</p>
-<ul>
-<li><code>require</code> 模块加载</li>
-<li><code>exports</code> 模块导出</li>
-<li><code>module</code> 模块本身</li>
-</ul>
-<p>根据规范一个单独的 JS 文件就是一个 <code>module</code>，每个单独的 <code>module</code> 是一个单独的作用域。也就是说在一个文件里定义的变量和函数都是私有，对其他文件不可见，除非用 <code>exports</code> 导出了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;importing </span><br><span class="line">const doSomething &#x3D; require(&#39;.&#x2F;doSomething.js&#39;); </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;exporting</span><br><span class="line">module.exports &#x3D; function doSomething(n) &#123;</span><br><span class="line">  &#x2F;&#x2F; do something</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在 <code>CommonJS</code> 中，有一个全局性方法 <code>require()</code> ，用于加载模块。假定有一个数学模块 <code>math.js</code> ，就可以像下面这样加载。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var math &#x3D; require(&#39;math&#39;);</span><br></pre></td></tr></table></figure>
-
-<p>然后，就可以调用模块提供的方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var math &#x3D; require(&#39;math&#39;);</span><br><span class="line">math.add(2,3); &#x2F;&#x2F; 5</span><br></pre></td></tr></table></figure>
-
-<p>但是，由于一个重大的局限，使得 <code>CommonJS</code> 规范不适用于浏览器环境。上述代码，如果在浏览器中运行，会有一个很大的问题。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var math &#x3D; require(&#39;math&#39;);</span><br><span class="line">math.add(2, 3);</span><br></pre></td></tr></table></figure>
-
-<p>第二行 <code>math.add(2, 3)</code>，在第一行 <code>require(&#39;math&#39;)</code> 之后运行，因此必须等 <code>math.js</code> 加载完成。也就是说，如果加载时间很长，整个应用就会停在那里等。</p>
-<p>这对服务器端不是一个问题，因为所有的模块都存放在本地硬盘，可以同步加载完成，等待时间就是硬盘的读取时间。但是，对于浏览器，这却是一个大问题，因为模块都放在服务器端，等待时间取决于网速的快慢，可能要等很长时间，浏览器处于“假死”状态。</p>
-<p>因此，浏览器端的模块，不能采用“同步加载”，只能采用“异步加载”。这就是 AMD 规范诞生的背景。</p>
-<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
-<li>服务器端模块便于重用</li>
-<li>NPM 中已经有将几十万个可以使用模块包</li>
-<li>简单并容易使用</li>
-</ul>
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ul>
-<li>同步的模块加载方式不适合在浏览器环境中，同步意味着阻塞加载，浏览器资源是异步加载的</li>
-<li>不能非阻塞的并行加载多个模块</li>
-</ul>
-<h2 id="实现方案"><a href="#实现方案" class="headerlink" title="实现方案"></a>实现方案</h2><ul>
-<li>服务器端的 <code>Node.js</code></li>
-<li><code>Browserify</code>(浏览器端的 CommonJS 实现，可以使用 NPM 的模块，但是编译打包后的文件体积可能很大)</li>
-<li><code>modules-webmake</code>(类似 <code>Browserify</code>，还不如 <code>Browserify</code> 灵活)</li>
-<li><code>wreq</code>(<code>Browserify</code> 的前身)</li>
-</ul>
-<h1 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h1><h2 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h2><p>AMD（Asynchronous Module Definition）采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">define(&quot;module&quot;, [&quot;dep1&quot;, &quot;dep2&quot;], function(d1, d2) &#123;</span><br><span class="line">  return someExportedValue;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">require([&quot;module&quot;, &quot;..&#x2F;file&quot;], function(module, file) &#123; &#x2F;* ... *&#x2F; &#125;);</span><br></pre></td></tr></table></figure>
-
-<h2 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h2><ul>
-<li>适合在浏览器环境中异步加载模块</li>
-<li>可以并行加载多个模块</li>
-</ul>
-<h2 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h2><ul>
-<li>提高了开发成本，代码的阅读和书写比较困难，模块定义方式的语义不顺畅</li>
-<li>不符合通用的模块化思维方式，是一种妥协的实现</li>
-</ul>
-<h2 id="实现方案-1"><a href="#实现方案-1" class="headerlink" title="实现方案"></a>实现方案</h2><ul>
-<li><code>RequireJS</code></li>
-<li><code>curl</code></li>
-</ul>
-<h1 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h1><h2 id="概述-2"><a href="#概述-2" class="headerlink" title="概述"></a>概述</h2><p>CMD（Common Module Definition）规范和 AMD 很相似，尽量保持简单，并与 CommonJS 和 Node.js 的 Modules 规范保持了很大的兼容性。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">define(function(require, exports, module) &#123;</span><br><span class="line">  var $ &#x3D; require(&#39;jquery&#39;);</span><br><span class="line">  var Spinning &#x3D; require(&#39;.&#x2F;spinning&#39;);</span><br><span class="line">  exports.doSomething &#x3D; ...</span><br><span class="line">  module.exports &#x3D; ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h2 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h2><ul>
-<li>依赖就近，延迟执行</li>
-<li>可以很容易在 Node.js 中运行</li>
-</ul>
-<h2 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h2><ul>
-<li>依赖 SPM 打包，模块的加载逻辑偏重</li>
-</ul>
-<h2 id="实现方案-2"><a href="#实现方案-2" class="headerlink" title="实现方案"></a>实现方案</h2><ul>
-<li>Sea.js</li>
-<li>coolie</li>
-</ul>
-<h1 id="UMD"><a href="#UMD" class="headerlink" title="UMD"></a>UMD</h1><h2 id="概述-3"><a href="#概述-3" class="headerlink" title="概述"></a>概述</h2><p>UMD（Universal Module Definition）规范类似于兼容 CommonJS 和 AMD 的语法糖，是模块定义的跨平台解决方案。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(function (global, factory) &#123;</span><br><span class="line">    typeof exports &#x3D;&#x3D;&#x3D; &#39;object&#39; &amp;&amp; typeof module !&#x3D;&#x3D; &#39;undefined&#39; ? module.exports &#x3D; factory() :</span><br><span class="line">    typeof define &#x3D;&#x3D;&#x3D; &#39;function&#39; &amp;&amp; define.amd ? define(factory) :</span><br><span class="line">    (global.libName &#x3D; factory());</span><br><span class="line">&#125;(this, (function () &#123; &#39;use strict&#39;;&#125;)));</span><br></pre></td></tr></table></figure>
-
-<p>可以理解 UMD 实际上就是 <code>AMD + CommonJS + 全局变量</code> 这三种风格的结合。</p>
-<p>这段代码就是对当前运行环境的判断，如果是 Node 环境 就是使用 CommonJs 规范， 如果不是就判断是否为 AMD 环境， 最后导出全局变量。有了 UMD 后我们的代码和同时运行在 Node 和 浏览器上<br>所以现在前端大多数的库最后打包都使用的是 UMD 规范。</p>
-<h1 id="ESM"><a href="#ESM" class="headerlink" title="ESM"></a>ESM</h1><h2 id="概述-4"><a href="#概述-4" class="headerlink" title="概述"></a>概述</h2><p>ES6 标准增加了 JavaScript 语言层面的模块体系定义。ES6 模块的设计思想是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。CommonJS 和 AMD 模块，都只能在运行时确定这些东西。比如，CommonJS 模块就是对象，输入时必须查找对象属性。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import React from &#39;react&#39;;</span><br><span class="line">import &#123;foo, bar&#125; from &#39;.&#x2F;myLib&#39;;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">export default function() &#123;</span><br><span class="line">  &#x2F;&#x2F; your Function</span><br><span class="line">&#125;;</span><br><span class="line">export const function1() &#123;...&#125;;</span><br><span class="line">export const function2() &#123;...&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="优点-3"><a href="#优点-3" class="headerlink" title="优点"></a>优点</h2><ul>
-<li>容易进行静态分析</li>
-<li>面向未来的 EcmaScript 标准</li>
-</ul>
-<h2 id="缺点-3"><a href="#缺点-3" class="headerlink" title="缺点"></a>缺点</h2><ul>
-<li>原生浏览器端还没有实现该标准</li>
-<li>全新的命令，新版的 Node.js 才支持</li>
-</ul>
-<h2 id="实现方案-3"><a href="#实现方案-3" class="headerlink" title="实现方案"></a>实现方案</h2><ul>
-<li>Babel</li>
-</ul>
-<h1 id="CommonJs-和-ES6-Module-的区别"><a href="#CommonJs-和-ES6-Module-的区别" class="headerlink" title="CommonJs 和 ES6 Module 的区别"></a>CommonJs 和 ES6 Module 的区别</h1><ul>
-<li>CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用</li>
-<li>CommonJS 模块是运行时加载，ES6 模块是编译时输出接口</li>
-</ul>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/10/12/%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93/" rel="prev" title="前端模块化对比总结">
+      <i class="fa fa-chevron-left"></i> 前端模块化对比总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/06/12/JavaScript-%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/" rel="next" title="JavaScript 运行机制详解">
+      JavaScript 运行机制详解 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
   
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/21/%E5%8E%9F%E5%9E%8B%EF%BC%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://inews.gtimg.com/newsapp_ls/0/12122532695/0">
-      <meta itemprop="name" content="Albert Guo">
-      <meta itemprop="description" content="郭鹏松的个人博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Albert Guo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/07/21/%E5%8E%9F%E5%9E%8B%EF%BC%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/" class="post-title-link" itemprop="url">原型，原型链</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-07-21 13:50:51" itemprop="dateCreated datePublished" datetime="2016-07-21T13:50:51+08:00">2016-07-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-21 14:01:50" itemprop="dateModified" datetime="2020-07-21T14:01:50+08:00">2020-07-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文部分摘录自网道 JavaScript 教程，仅供学习参考<br>参考地址：<a href="https://wangdoc.com/javascript/oop/prototype.html#prototype-%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8" target="_blank" rel="noopener">https://wangdoc.com/javascript/oop/prototype.html#prototype-%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8</a></p>
-</blockquote>
-<h1 id="prototype-属性的作用"><a href="#prototype-属性的作用" class="headerlink" title="prototype 属性的作用"></a>prototype 属性的作用</h1><p>JavaScript 继承机制的设计思想就是，原型对象的所有属性和方法，都能被实例对象共享。也就是说，如果属性和方法定义在原型上，那么所有实例对象就能共享，不仅节省了内存，还体现了实例对象之间的联系。</p>
-<p>下面，先看怎么为对象指定原型。JavaScript 规定，每个函数都有一个 <code>prototype</code> 属性，指向一个对象。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function f() &#123;&#125;</span><br><span class="line">typeof f.prototype &#x2F;&#x2F; &quot;object&quot;</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，函数f默认具有 <code>prototype</code> 属性，指向一个对象。</p>
-<p>对于普通函数来说，该属性基本无用。但是，对于构造函数来说，生成实例的时候，该属性会自动成为实例对象的原型。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Animal(name) &#123;</span><br><span class="line">  this.name &#x3D; name;</span><br><span class="line">&#125;</span><br><span class="line">Animal.prototype.color &#x3D; &#39;white&#39;;</span><br><span class="line"></span><br><span class="line">var cat1 &#x3D; new Animal(&#39;大毛&#39;);</span><br><span class="line">var cat2 &#x3D; new Animal(&#39;二毛&#39;);</span><br><span class="line"></span><br><span class="line">cat1.color &#x2F;&#x2F; &#39;white&#39;</span><br><span class="line">cat2.color &#x2F;&#x2F; &#39;white&#39;</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，构造函数 <code>Animal</code> 的 <code>prototype</code> 属性，就是实例对象 <code>cat1</code> 和 <code>cat2</code> 的原型对象。原型对象上添加一个 <code>color</code> 属性，结果，实例对象都共享了该属性。</p>
-<p>原型对象的属性不是实例对象自身的属性。只要修改原型对象，变动就立刻会体现在所有实例对象上。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Animal.prototype.color &#x3D; &#39;yellow&#39;;</span><br><span class="line"></span><br><span class="line">cat1.color &#x2F;&#x2F; &quot;yellow&quot;</span><br><span class="line">cat2.color &#x2F;&#x2F; &quot;yellow&quot;</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，原型对象的 <code>color</code> 属性的值变为 <code>yellow</code> ，两个实例对象的 <code>color</code> 属性立刻跟着变了。这是因为实例对象其实没有 <code>color</code> 属性，都是读取原型对象的 <code>color</code> 属性。也就是说，==当实例对象本身没有某个属性或方法的时候，它会到原型对象去寻找该属性或方法。== 这就是原型对象的特殊之处。</p>
-<p>==如果实例对象自身就有某个属性或方法，它就不会再去原型对象寻找这个属性或方法。==</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat1.color &#x3D; &#39;black&#39;;</span><br><span class="line"></span><br><span class="line">cat1.color &#x2F;&#x2F; &#39;black&#39;</span><br><span class="line">cat2.color &#x2F;&#x2F; &#39;yellow&#39;</span><br><span class="line">Animal.prototype.color &#x2F;&#x2F; &#39;yellow&#39;;</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，实例对象 <code>cat1</code> 的 <code>color</code> 属性改为 <code>black</code>，就使得它不再去原型对象读取 <code>color</code> 属性，后者的值依然为 <code>yellow</code> 。</p>
-<p>总结一下，==原型对象的作用，就是定义所有实例对象共享的属性和方法。== 这也是它被称为原型对象的原因，而实例对象可以视作从原型对象衍生出来的子对象。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Animal.prototype.walk &#x3D; function () &#123;</span><br><span class="line">  console.log(this.name + &#39; is walking&#39;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，<code>Animal.prototype</code> 对象上面定义了一个walk方法，这个方法将可以在所有 <code>Animal</code> 实例对象上面调用。</p>
-<p><img src="https://inews.gtimg.com/newsapp_ls/0/12123167721/0" alt="原型示意图"></p>
-<h1 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h1><p>==JavaScript 规定，所有对象都有自己的原型对象（<code>prototype</code>）。一方面，任何一个对象，都可以充当其他对象的原型；另一方面，由于原型对象也是对象，所以它也有自己的原型。因此，就会形成一个“原型链”：对象到原型，再到原型的原型……==</p>
-<p>如果一层层地上溯，所有对象的原型最终都可以上溯到 <code>Object.prototype</code>，即 <code>Object</code> 构造函数的 <code>prototype</code> 属性。也就是说，所有对象都继承了 <code>Object.prototype</code> 的属性。这就是所有对象都有 <code>valueOf</code> 和 <code>toString</code> 方法的原因，因为这是从 <code>Object.prototype</code> 继承的。</p>
-<p><code>Object.prototype</code> 的原型是 <code>null</code> 。<code>null</code> 没有任何属性和方法，也没有自己的原型。因此，==原型链的尽头就是 <code>null</code>。==</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object.getPrototypeOf(Object.prototype)</span><br><span class="line">&#x2F;&#x2F; null</span><br></pre></td></tr></table></figure>
-
-<p>上面代码表示，<code>Object.prototype</code> 对象的原型是 <code>null</code>，由于 <code>null</code> 没有任何属性，所以原型链到此为止。<code>Object.getPrototypeOf</code> 方法返回参数对象的原型。</p>
-<p>==读取对象的某个属性时，JavaScript  引擎先寻找对象本身的属性，如果找不到，就到它的原型去找，如果还是找不到，就到原型的原型去找。如果直到最顶层的 <code>Object.prototype</code> 还是找不到，则返回 <code>undefined</code> 。如果对象自身和它的原型，都定义了一个同名属性，那么优先读取对象自身的属性，这叫做“覆盖”。==</p>
-<p>注意，一级级向上，在整个原型链上寻找某个属性，对性能是有影响的。所寻找的属性在越上层的原型对象，对性能的影响越大。如果寻找某个不存在的属性，将会遍历整个原型链。</p>
-<p>举例来说，如果让构造函数的 <code>prototype</code> 属性指向一个数组，就意味着实例对象可以调用数组方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var MyArray &#x3D; function () &#123;&#125;;</span><br><span class="line"></span><br><span class="line">MyArray.prototype &#x3D; new Array();</span><br><span class="line">MyArray.prototype.constructor &#x3D; MyArray;</span><br><span class="line"></span><br><span class="line">var mine &#x3D; new MyArray();</span><br><span class="line">mine.push(1, 2, 3);</span><br><span class="line">mine.length &#x2F;&#x2F; 3</span><br><span class="line">mine instanceof Array &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，<code>mine</code> 是构造函数 <code>MyArray</code> 的实例对象，由于 <code>MyArray.prototype</code> 指向一个数组实例，使得mine可以调用数组方法（这些方法定义在数组实例的 <code>prototype</code> 对象上面）。最后那行 <code>instanceof</code> 表达式，用来比较一个对象是否为某个构造函数的实例，结果就是证明 <code>mine</code> 为 <code>Array</code> 的实例。</p>
-<p><img src="https://inews.gtimg.com/newsapp_ls/0/12123168822/0" alt="原型链示意图"></p>
-<h1 id="constructor-属性"><a href="#constructor-属性" class="headerlink" title="constructor 属性"></a>constructor 属性</h1><p>==<code>prototype</code> 对象有一个 <code>constructor</code> 属性，默认指向 <code>prototype</code> 对象所在的构造函数。==</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function P() &#123;&#125;</span><br><span class="line">P.prototype.constructor &#x3D;&#x3D;&#x3D; P &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
-
-<p>由于 <code>constructor</code> 属性定义在 <code>prototype</code> 对象上面，意味着可以被所有实例对象继承。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function P() &#123;&#125;</span><br><span class="line">var p &#x3D; new P();</span><br><span class="line"></span><br><span class="line">p.constructor &#x3D;&#x3D;&#x3D; P &#x2F;&#x2F; true</span><br><span class="line">p.constructor &#x3D;&#x3D;&#x3D; P.prototype.constructor &#x2F;&#x2F; true</span><br><span class="line">p.hasOwnProperty(&#39;constructor&#39;) &#x2F;&#x2F; false</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，<code>p</code> 是构造函数 <code>P</code> 的实例对象，但是 <code>p</code> 自身没有 <code>constructor</code> 属性，该属性其实是读取原型链上面的 <code>P.prototype.constructor</code> 属性。</p>
-<p><code>constructor</code> 属性的作用是，可以得知某个实例对象，到底是哪一个构造函数产生的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function F() &#123;&#125;;</span><br><span class="line">var f &#x3D; new F();</span><br><span class="line"></span><br><span class="line">f.constructor &#x3D;&#x3D;&#x3D; F &#x2F;&#x2F; true</span><br><span class="line">f.constructor &#x3D;&#x3D;&#x3D; RegExp &#x2F;&#x2F; false</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，<code>constructor</code> 属性确定了实例对象f的构造函数是 <code>F</code>，而不是 <code>RegExp</code>。</p>
-<p>另一方面，有了 <code>constructor</code> 属性，就可以从一个实例对象新建另一个实例。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Constr() &#123;&#125;</span><br><span class="line">var x &#x3D; new Constr();</span><br><span class="line"></span><br><span class="line">var y &#x3D; new x.constructor();</span><br><span class="line">y instanceof Constr &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，<code>x</code> 是构造函数 <code>Constr</code> 的实例，可以从 <code>x.constructor</code> 间接调用构造函数。这使得在实例方法中，调用自身的构造函数成为可能。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Constr.prototype.createCopy &#x3D; function () &#123;</span><br><span class="line">  return new this.constructor();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，<code>createCopy</code> 方法调用构造函数，新建另一个实例。</p>
-<p><code>constructor</code> 属性表示原型对象与构造函数之间的关联关系，如果修改了原型对象，一般会同时修改 <code>constructor</code> 属性，防止引用的时候出错。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line">  this.name &#x3D; name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.constructor &#x3D;&#x3D;&#x3D; Person &#x2F;&#x2F; true</span><br><span class="line"></span><br><span class="line">Person.prototype &#x3D; &#123;</span><br><span class="line">  method: function () &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Person.prototype.constructor &#x3D;&#x3D;&#x3D; Person &#x2F;&#x2F; false</span><br><span class="line">Person.prototype.constructor &#x3D;&#x3D;&#x3D; Object &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，构造函数 <code>Person</code> 的原型对象改掉了，但是没有修改 <code>constructor</code> 属性，导致这个属性不再指向 <code>Person</code>。由于 <code>Person</code> 的新原型是一个普通对象，而普通对象的 <code>constructor</code> 属性指向 <code>Object</code> 构造函数，导致 <code>Person.prototype.constructor</code> 变成了 <code>Object</code>。</p>
-<p>所以，修改原型对象时，一般要同时修改 <code>constructor</code> 属性的指向。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 坏的写法</span><br><span class="line">C.prototype &#x3D; &#123;</span><br><span class="line">  method1: function (...) &#123; ... &#125;,</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 好的写法</span><br><span class="line">C.prototype &#x3D; &#123;</span><br><span class="line">  constructor: C,</span><br><span class="line">  method1: function (...) &#123; ... &#125;,</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 更好的写法</span><br><span class="line">C.prototype.method1 &#x3D; function (...) &#123; ... &#125;;</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，要么将 <code>constructor</code> 属性重新指向原来的构造函数，要么只在原型对象上添加方法，这样可以保证 <code>instanceof</code> 运算符不会失真。</p>
-<p>如果不能确定 <code>constructor</code> 属性是什么函数，还有一个办法：通过 <code>name</code> 属性，从实例得到构造函数的名称。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function Foo() &#123;&#125;</span><br><span class="line">var f &#x3D; new Foo();</span><br><span class="line">f.constructor.name &#x2F;&#x2F; &quot;Foo&quot;</span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
 
 
 
@@ -790,6 +486,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的继承"><span class="nav-number">1.</span> <span class="nav-text">对象的继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型对象概述"><span class="nav-number">1.1.</span> <span class="nav-text">原型对象概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构造函数的缺点"><span class="nav-number">1.1.1.</span> <span class="nav-text">构造函数的缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#prototype-属性的作用"><span class="nav-number">1.1.2.</span> <span class="nav-text">prototype 属性的作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原型链"><span class="nav-number">1.1.3.</span> <span class="nav-text">原型链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#constructor-属性"><span class="nav-number">1.1.4.</span> <span class="nav-text">constructor 属性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#instanceof-运算符"><span class="nav-number">1.2.</span> <span class="nav-text">instanceof 运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造函数继承"><span class="nav-number">1.3.</span> <span class="nav-text">构造函数继承</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思考"><span class="nav-number">1.3.1.</span> <span class="nav-text">思考</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一、构造函数绑定"><span class="nav-number">1.3.2.</span> <span class="nav-text">一、构造函数绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、prototype-模式"><span class="nav-number">1.3.3.</span> <span class="nav-text">二、prototype 模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、直接继承-prototype"><span class="nav-number">1.3.4.</span> <span class="nav-text">三、直接继承 prototype</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、利用空对象作为中介"><span class="nav-number">1.3.5.</span> <span class="nav-text">四、利用空对象作为中介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五、拷贝继承"><span class="nav-number">1.3.6.</span> <span class="nav-text">五、拷贝继承</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非构造函数继承"><span class="nav-number">1.4.</span> <span class="nav-text">非构造函数继承</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思考-1"><span class="nav-number">1.4.1.</span> <span class="nav-text">思考</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一、object-方法"><span class="nav-number">1.4.2.</span> <span class="nav-text">一、object() 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、浅拷贝"><span class="nav-number">1.4.3.</span> <span class="nav-text">二、浅拷贝</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、深拷贝"><span class="nav-number">1.4.4.</span> <span class="nav-text">三、深拷贝</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多重继承"><span class="nav-number">1.5.</span> <span class="nav-text">多重继承</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
