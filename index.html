@@ -835,6 +835,116 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/15/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://inews.gtimg.com/newsapp_ls/0/12122532695/0">
+      <meta itemprop="name" content="Albert Guo">
+      <meta itemprop="description" content="郭鹏松的个人博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Albert Guo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/15/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%9F/" class="post-title-link" itemprop="url">如何判断数据类型？</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-15 19:41:39" itemprop="dateCreated datePublished" datetime="2018-10-15T19:41:39+08:00">2018-10-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-24 17:44:58" itemprop="dateModified" datetime="2020-07-24T17:44:58+08:00">2020-07-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>要弄清楚如何判断数据类型，首先要清楚 JavaScript 到底有哪些数据类型。</p>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>JavaScript 语言的每一个值，都属于某一种数据类型。JavaScript 的数据类型，共有 <code>7</code> 种。</p>
+<ul>
+<li>数值（<code>number</code>）：整数和小数（比如 <code>1</code> 和 <code>3.14</code>）</li>
+<li>字符串（<code>string</code>）：文本（比如 <code>&#39;Hello World&#39;</code>）</li>
+<li>布尔值（<code>boolean</code>）：表示真伪的两个特殊值，即 <code>true</code>（真）和 <code>false</code>（假）</li>
+<li><code>undefined</code>：表示“未定义”或不存在，即由于目前没有定义，所以此处暂时没有任何值</li>
+<li><code>null</code>：表示空值，即此处的值为空</li>
+<li><code>Symbol</code>：表示独一无二的值（ES6 新增）</li>
+<li>对象（<code>object</code>）：各种值组成的集合</li>
+</ul>
+<p>对象是最复杂的数据类型，又可以分成几个子类型。</p>
+<ul>
+<li>狭义的对象（<code>object</code>）</li>
+<li>数组（<code>array</code>）</li>
+<li>函数（<code>function</code>）</li>
+<li>Set（ES6 新增）</li>
+<li>Map（ES6 新增）</li>
+</ul>
+<h1 id="判断数据类型"><a href="#判断数据类型" class="headerlink" title="判断数据类型"></a>判断数据类型</h1><p>JavaScript 有三种方法，可以确定一个值到底是什么类型。</p>
+<ul>
+<li><code>typeof</code> 运算符（只能精准判断基本数据类型，复杂数据类型判断比较笼统）</li>
+<li><code>instanceof</code> 运算符（只能作用于对象，判断复杂数据类型，而且比较笼统，不精准）</li>
+<li><code>Object.prototype.toString</code> 方法（推荐使用）</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'a'</span>;</span><br><span class="line"><span class="keyword">var</span> aa = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'aaa'</span>);</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">123</span>;</span><br><span class="line"><span class="keyword">var</span> c = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">var</span> d = <span class="literal">undefined</span>;</span><br><span class="line"><span class="keyword">var</span> e = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> f = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> g = [<span class="string">'2'</span>];</span><br><span class="line"><span class="keyword">var</span> s = <span class="keyword">new</span> <span class="built_in">Set</span>();   <span class="comment">// ES6 新增</span></span><br><span class="line"><span class="keyword">var</span> m = <span class="keyword">new</span> <span class="built_in">Map</span>();   <span class="comment">// ES6 新增</span></span><br><span class="line"><span class="keyword">var</span> sym = <span class="built_in">Symbol</span>(<span class="string">'123'</span>);   <span class="comment">// ES6 新增</span></span><br></pre></td></tr></table></figure>
+
+<p><code>typeof</code> 运算符可以返回一个值的数据类型，只能精准判断基本数据类型，复杂数据类型判断比较笼统。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> a);   <span class="comment">// string</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> g);   <span class="comment">// Object</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> s);   <span class="comment">// Object</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> m);   <span class="comment">// Object</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> sym);   <span class="comment">// symbol</span></span><br></pre></td></tr></table></figure>
+
+<p>数值、字符串、布尔值分别返回 <code>number、string、boolean</code>；函数返回 <code>function</code>、<code>undefined</code> 返回 <code>undefined</code>、对象返回 <code>object</code>、<code>null</code> 返回 <code>object</code>（历史原因）。</p>
+<p><code>instanceof</code> 运算符，判断复杂数据类型，而且比较笼统，不精准。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a <span class="keyword">instanceof</span> <span class="built_in">String</span>);   <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(b <span class="keyword">instanceof</span> <span class="built_in">Number</span>);   <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(aa <span class="keyword">instanceof</span> <span class="built_in">String</span>);   <span class="comment">// true （注意观察和字符串 a 的声明方式）</span></span><br><span class="line"><span class="built_in">console</span>.log(g <span class="keyword">instanceof</span> <span class="built_in">Object</span>);   <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Object.prototype.toString</code> 方法，配合 <code>call</code> 方法使用来判断数据类型，推荐使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(a));   <span class="comment">// [object String]</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(b));   <span class="comment">// [object Number]</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(g));   <span class="comment">// [object Array]</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(s));   <span class="comment">// [object Set]</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(m));   <span class="comment">// [object Map]</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(sym));   <span class="comment">// [object Symbol]</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/29/git-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1297,156 +1407,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/12/JavaScript-%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://inews.gtimg.com/newsapp_ls/0/12122532695/0">
-      <meta itemprop="name" content="Albert Guo">
-      <meta itemprop="description" content="郭鹏松的个人博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Albert Guo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/06/12/JavaScript-%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">JavaScript 运行机制详解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-06-12 20:58:20" itemprop="dateCreated datePublished" datetime="2017-06-12T20:58:20+08:00">2017-06-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-20 21:05:32" itemprop="dateModified" datetime="2020-07-20T21:05:32+08:00">2020-07-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文摘抄自 <strong>阮一峰</strong> 老师博客，仅供学习参考。<br>原文地址：<a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2014/10/event-loop.html</a></p>
-</blockquote>
-<h1 id="一、为什么JavaScript是单线程？"><a href="#一、为什么JavaScript是单线程？" class="headerlink" title="一、为什么JavaScript是单线程？"></a>一、为什么JavaScript是单线程？</h1><p>JavaScript 语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。那么，为什么 JavaScript 不能有多个线程呢？这样能提高效率啊。</p>
-<p>JavaScript 的单线程，与它的用途有关。作为浏览器脚本语言，JavaScript 的主要用途是与用户互动，以及操作 DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定 JavaScript 同时有两个线程，一个线程在某个 DOM 节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？</p>
-<p>所以，为了避免复杂性，从一诞生，JavaScript 就是单线程，这已经成了这门语言的核心特征，将来也不会改变。</p>
-<p>为了利用多核 CPU 的计算能力，HTML5 提出 Web Worker 标准，允许 JavaScript 脚本创建多个线程，但是子线程完全受主线程控制，且不得操作 DOM。所以，这个新标准并没有改变 JavaScript 单线程的本质。</p>
-<h1 id="二、任务队列"><a href="#二、任务队列" class="headerlink" title="二、任务队列"></a>二、任务队列</h1><p>单线程就意味着，所有任务需要排队，前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。</p>
-<p>如果排队是因为计算量大，CPU 忙不过来，倒也算了，但是很多时候 CPU 是闲着的，因为 IO 设备（输入输出设备）很慢（比如 Ajax 操作从网络读取数据），不得不等着结果出来，再往下执行。</p>
-<p>JavaScript 语言的设计者意识到，这时主线程完全可以不管 IO 设备，挂起处于等待中的任务，先运行排在后面的任务。等到 IO 设备返回了结果，再回过头，把挂起的任务继续执行下去。</p>
-<p>于是，==所有任务可以分成两种，一种是同步任务（synchronous），另一种是异步任务（asynchronous）。== 同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；异步任务指的是，不进入主线程、而进入”任务队列”（task queue）的任务，只有”任务队列”通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。</p>
-<p>具体来说，异步执行的运行机制如下。（同步执行也是如此，因为它可以被视为没有异步任务的异步执行。）</p>
-<ol>
-<li>所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。</li>
-<li>主线程之外，还存在一个”任务队列”（task queue）。只要异步任务有了运行结果，就在”任务队列”之中放置一个事件。</li>
-<li>一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。</li>
-<li>主线程不断重复上面的第三步。</li>
-</ol>
-<p>下图就是主线程和任务队列的示意图。</p>
-<p><img src="https://note.youdao.com/yws/public/resource/a71ec9ee838e17ff2e49dbcc7451790f/xmlnote/WEBRESOURCE21c14910a081cf794567059dd18e247f/5696" alt="主线程和任务队列示意图"></p>
-<p>只要主线程空了，就会去读取”任务队列”，这就是 JavaScript 的运行机制。这个过程会不断重复。</p>
-<h1 id="三、事件和回调函数"><a href="#三、事件和回调函数" class="headerlink" title="三、事件和回调函数"></a>三、事件和回调函数</h1><p>“任务队列”是一个事件的队列（也可以理解成消息的队列），IO 设备完成一项任务，就在”任务队列”中添加一个事件，表示相关的异步任务可以进入”执行栈”了。主线程读取”任务队列”，就是读取里面有哪些事件。</p>
-<p>“任务队列”中的事件，除了 IO 设备的事件以外，还包括一些用户产生的事件（比如鼠标点击、页面滚动等等）。只要指定过回调函数，这些事件发生时就会进入”任务队列”，等待主线程读取。</p>
-<p>所谓”回调函数”（callback），就是那些会被主线程挂起来的代码。异步任务必须指定回调函数，当主线程开始执行异步任务，就是执行对应的回调函数。</p>
-<p>“任务队列”是一个先进先出的数据结构，排在前面的事件，优先被主线程读取。主线程的读取过程基本上是自动的，只要执行栈一清空，”任务队列”上第一位的事件就自动进入主线程。但是，由于存在后文提到的”定时器”功能，主线程首先要检查一下执行时间，某些事件只有到了规定的时间，才能返回主线程。</p>
-<h1 id="四、Event-Loop"><a href="#四、Event-Loop" class="headerlink" title="四、Event Loop"></a>四、Event Loop</h1><p>主线程从”任务队列”中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为 Event Loop（事件循环）。</p>
-<p>为了更好地理解 Event Loop，请看下图（转引自Philip Roberts的演讲《Help, I’m stuck in an event-loop》）。</p>
-<p><img src="https://note.youdao.com/yws/public/resource/a71ec9ee838e17ff2e49dbcc7451790f/xmlnote/WEBRESOURCE9b30fd1cb0660cbab875c88b3bd2d287/5698" alt="event-loop 示意图"></p>
-<p>上图中，主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部 API，它们在”任务队列”中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。</p>
-<p>执行栈中的代码（同步任务），总是在读取”任务队列”（异步任务）之前执行。请看下面这个例子。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var req &#x3D; new XMLHttpRequest();</span><br><span class="line">    req.open(&#39;GET&#39;, url);    </span><br><span class="line">    req.onload &#x3D; function ()&#123;&#125;;    </span><br><span class="line">    req.onerror &#x3D; function ()&#123;&#125;;    </span><br><span class="line">    req.send();</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中的 <code>req.send</code> 方法是 Ajax 操作向服务器发送数据，它是一个异步任务，意味着只有当前脚本的所有代码执行完，系统才会去读取”任务队列”。所以，它与下面的写法等价。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var req &#x3D; new XMLHttpRequest();</span><br><span class="line">req.open(&#39;GET&#39;, url);</span><br><span class="line">req.send();</span><br><span class="line">req.onload &#x3D; function ()&#123;&#125;;    </span><br><span class="line">req.onerror &#x3D; function ()&#123;&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>也就是说，指定回调函数的部分（onload 和 onerror），在 <code>send()</code> 方法的前面或后面无关紧要，因为它们属于执行栈的一部分，系统总是执行完它们，才会去读取”任务队列”。</p>
-<h1 id="五、定时器"><a href="#五、定时器" class="headerlink" title="五、定时器"></a>五、定时器</h1><p>除了放置异步任务的事件，”任务队列”还可以放置定时事件，即指定某些代码在多少时间之后执行。这叫做”定时器”（timer）功能，也就是定时执行的代码。</p>
-<p>定时器功能主要由 <code>setTimeout()</code> 和 <code>setInterval()</code> 这两个函数来完成，它们的内部运行机制完全一样，区别在于前者指定的代码是一次性执行，后者则为反复执行。以下主要讨论 <code>setTimeout()</code>。</p>
-<p><code>setTimeout()</code> 接受两个参数，第一个是回调函数，第二个是推迟执行的毫秒数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(1);</span><br><span class="line">setTimeout(function()&#123;console.log(2);&#125;,1000);</span><br><span class="line">console.log(3);</span><br></pre></td></tr></table></figure>
-
-<p>上面代码的执行结果是 <code>1，3，2</code>，因为 <code>setTimeout()</code> 将第二行推迟到 <code>1000</code> 毫秒之后执行。</p>
-<p>如果将 <code>setTimeout()</code> 的第二个参数设为 <code>0</code>，就表示当前代码执行完（执行栈清空）以后，立即执行（<code>0</code> 毫秒间隔）指定的回调函数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(function()&#123;console.log(1);&#125;, 0);</span><br><span class="line">console.log(2);</span><br></pre></td></tr></table></figure>
-
-<p>上面代码的执行结果总是 <code>2，1</code>，因为只有在执行完第二行以后，系统才会去执行”任务队列”中的回调函数。</p>
-<p>总之，<code>setTimeout(fn,0)</code> 的含义是，指定某个任务在主线程最早可得的空闲时间执行，也就是说，尽可能早得执行。它在”任务队列”的尾部添加一个事件，因此要等到同步任务和”任务队列”现有的事件都处理完，才会得到执行。</p>
-<p>HTML5 标准规定了 <code>setTimeout()</code> 的第二个参数的最小值（最短间隔），不得低于 <code>4</code> 毫秒，如果低于这个值，就会自动增加。在此之前，老版本的浏览器都将最短间隔设为 <code>10</code> 毫秒。另外，对于那些 DOM 的变动（尤其是涉及页面重新渲染的部分），通常不会立即执行，而是每 <code>16</code> 毫秒执行一次。这时使用 <code>requestAnimationFrame()</code> 的效果要好于 <code>setTimeout()</code>。</p>
-<p>需要注意的是，<code>setTimeout()</code> 只是将事件插入了”任务队列”，必须等到当前代码（执行栈）执行完，主线程才会去执行它指定的回调函数。要是当前代码耗时很长，有可能要等很久，所以并没有办法保证，回调函数一定会在 <code>setTimeout()</code> 指定的时间执行。</p>
-<h1 id="六、Node-js的Event-Loop"><a href="#六、Node-js的Event-Loop" class="headerlink" title="六、Node.js的Event Loop"></a>六、Node.js的Event Loop</h1><p>Node.js 也是单线程的 Event Loop，但是它的运行机制不同于浏览器环境。</p>
-<p>请看下面的示意图（作者@BusyRich）。</p>
-<p><img src="https://note.youdao.com/yws/public/resource/a71ec9ee838e17ff2e49dbcc7451790f/xmlnote/WEBRESOURCE3a8233aa379e3bc6a52b742963e70b0f/5700" alt="node.js 事件循环示意图"></p>
-<p>根据上图，Node.js的运行机制如下。</p>
-<ol>
-<li>V8 引擎解析 JavaScript 脚本。</li>
-<li>解析后的代码，调用 Node API。</li>
-<li>libuv 库负责 Node API 的执行。它将不同的任务分配给不同的线程，形成一个 Event Loop（事件循环），以异步的方式将任务的执行结果返回给V8引擎。</li>
-<li>V8 引擎再将结果返回给用户。</li>
-</ol>
-<p>除了 <code>setTimeout</code> 和 <code>setInterval</code> 这两个方法，Node.js 还提供了另外两个与”任务队列”有关的方法：<code>process.nextTick</code> 和 <code>setImmediate</code>。它们可以帮助我们加深对”任务队列”的理解。</p>
-<p><code>process.nextTick</code> 方法可以在当前”执行栈”的尾部—-下一次 Event Loop（主线程读取”任务队列”）之前—-触发回调函数。也就是说，它指定的任务总是发生在所有异步任务之前。<code>setImmediate</code> 方法则是在当前”任务队列”的尾部添加事件，也就是说，它指定的任务总是在下一次 Event Loop 时执行，这与 <code>setTimeout(fn, 0)</code> 很像。请看下面的例子（via StackOverflow）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">process.nextTick(function A() &#123;</span><br><span class="line">  console.log(1);</span><br><span class="line">  process.nextTick(function B()&#123;console.log(2);&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">setTimeout(function timeout() &#123;</span><br><span class="line">  console.log(&#39;TIMEOUT FIRED&#39;);</span><br><span class="line">&#125;, 0)</span><br><span class="line">&#x2F;&#x2F; 1</span><br><span class="line">&#x2F;&#x2F; 2</span><br><span class="line">&#x2F;&#x2F; TIMEOUT FIRED</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，由于 <code>process.nextTick</code> 方法指定的回调函数，总是在当前”执行栈”的尾部触发，所以不仅函数 <code>A</code> 比 <code>setTimeout</code> 指定的回调函数 <code>timeout</code> 先执行，而且函数 <code>B</code> 也比 <code>timeout</code> 先执行。这说明，如果有多个 <code>process.nextTick</code> 语句（不管它们是否嵌套），将全部在当前”执行栈”执行。</p>
-<p>现在，再看 <code>setImmediate</code>。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">setImmediate(function A() &#123;</span><br><span class="line">  console.log(1);</span><br><span class="line">  setImmediate(function B()&#123;console.log(2);&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">setTimeout(function timeout() &#123;</span><br><span class="line">  console.log(&#39;TIMEOUT FIRED&#39;);</span><br><span class="line">&#125;, 0);</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，<code>setImmediate</code> 与 <code>setTimeout(fn,0)</code> 各自添加了一个回调函数 <code>A</code> 和 <code>timeout</code>，都是在下一次 Event Loop 触发。那么，哪个回调函数先执行呢？答案是不确定。运行结果可能是 <code>1--TIMEOUT FIRED--2</code>，也可能是 <code>TIMEOUT FIRED--1--2</code>。</p>
-<p>令人困惑的是，<code>Node.js</code> 文档中称，<code>setImmediate</code> 指定的回调函数，总是排在 <code>setTimeout</code> 前面。实际上，这种情况只发生在递归调用的时候。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">setImmediate(function ()&#123;</span><br><span class="line">  setImmediate(function A() &#123;</span><br><span class="line">    console.log(1);</span><br><span class="line">    setImmediate(function B()&#123;console.log(2);&#125;);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  setTimeout(function timeout() &#123;</span><br><span class="line">    console.log(&#39;TIMEOUT FIRED&#39;);</span><br><span class="line">  &#125;, 0);</span><br><span class="line">&#125;);</span><br><span class="line">&#x2F;&#x2F; 1</span><br><span class="line">&#x2F;&#x2F; TIMEOUT FIRED</span><br><span class="line">&#x2F;&#x2F; 2</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，<code>setImmediate</code> 和 <code>setTimeout</code> 被封装在一个 <code>setImmediate</code> 里面，它的运行结果总是 <code>1--TIMEOUT FIRED--2</code>，这时函数 <code>A</code> 一定在 <code>timeout</code> 前面触发。至于 <code>2</code> 排在 <code>TIMEOUT FIRED</code> 的后面（即函数 <code>B</code> 在 <code>timeout</code> 后面触发），是因为 <code>setImmediate</code> 总是将事件注册到下一轮 Event Loop，所以函数 <code>A</code> 和 <code>timeout</code> 是在同一轮 Loop 执行，而函数 <code>B</code> 在下一轮 Loop 执行。</p>
-<p>我们由此得到了 <code>process.nextTick</code> 和 <code>setImmediate</code> 的一个重要区别：多个 <code>process.nextTick</code> 语句总是在当前”执行栈”一次执行完，多个 <code>setImmediate</code> 可能则需要多次 loop 才能执行完。事实上，这正是 Node.js 10.0 版添加 <code>setImmediate</code> 方法的原因，否则像下面这样的递归调用 <code>process.nextTick</code>，将会没完没了，主线程根本不会去读取”事件队列”！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">process.nextTick(function foo() &#123;</span><br><span class="line">  process.nextTick(foo);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>事实上，现在要是你写出递归的 <code>process.nextTick</code>，Node.js 会抛出一个警告，要求你改成 <code>setImmediate</code>。</p>
-<p>另外，由于 <code>process.nextTick</code> 指定的回调函数是在本次”事件循环”触发，而 <code>setImmediate</code> 指定的是在下次”事件循环”触发，所以很显然，前者总是比后者发生得早，而且执行效率也高（因为不用检查”任务队列”）。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1517,7 +1477,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
