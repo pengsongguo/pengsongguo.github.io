@@ -172,6 +172,94 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/03/%E9%83%A8%E5%88%86%E5%8C%BA%E5%9F%9F%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A1%88%E4%BE%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://inews.gtimg.com/newsapp_ls/0/12122532695/0">
+      <meta itemprop="name" content="Albert Guo">
+      <meta itemprop="description" content="郭鹏松的个人博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Albert Guo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/03/%E9%83%A8%E5%88%86%E5%8C%BA%E5%9F%9F%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A1%88%E4%BE%8B/" class="post-title-link" itemprop="url">部分区域懒加载案例</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-03 19:02:31 / 修改时间：19:03:18" itemprop="dateCreated datePublished" datetime="2020-08-03T19:02:31+08:00">2020-08-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="需求描述"><a href="#需求描述" class="headerlink" title="需求描述"></a>需求描述</h1><p>最近接到一个需求，需要实现在页面的部分区域，实现上拉加载，下拉加载等类似的需求。而且第一次滑倒末端，不加载，只有第二次尝试滑动才加载切换导航。</p>
+<p>之前做个类似需求，但是都是整屏幕的，这回不同的是部分区域。</p>
+<h1 id="布局解析"><a href="#布局解析" class="headerlink" title="布局解析"></a>布局解析</h1><img src="https://img10.360buyimg.com/ddimg/jfs/t1/124163/23/8657/213911/5f27d9edE9c0561c0/a87a6c667c8a4dc7.png" width = "375" height = "1008" alt="布局解析" align="center">
+
+<p>效果如下：</p>
+<img src="https://img12.360buyimg.com/ddimg/jfs/t1/139379/3/4451/1525195/5f27da43Ec5d12528/50bf3417f68705e3.gif" width = "375" height = "667" alt="布局解析" align="left">
+
+<h1 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h1><p>需求的难点：</p>
+<ol>
+<li>如何判断内容区域滑到弹出框（阅读滑动区域）了顶端/末端？</li>
+<li>如何仅在第二次滑动触发回调动作？</li>
+</ol>
+<p>对于第一个问题，其实按照示例图的分割，可以尝试得到一个判断公式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 何时滑动到最顶端？</span><br><span class="line"></span><br><span class="line">内容区域滑动到最顶端 &#x3D; 内容区域距离可视区域顶部距离 &gt;&#x3D; 可视区域高度 - 阅读滑动区域高度</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 何时滑动到最底端？</span><br><span class="line"></span><br><span class="line">内容区域滑动到最底端 &#x3D; 内容区域距离可视区域顶部距离 &gt;&#x3D; 内容区域高度 - 可视区域高度</span><br></pre></td></tr></table></figure>
+
+<p>然后通过监听滑动区域的滚动操作，实时获取元素的 <code>y</code> 坐标， <code>element.getBoundingClientRect().y</code> 。</p>
+<p>对于第二个问题，可以采用一个中间量，去缓存自增，但是需要记住，每一次切换，需要归位。</p>
+<h1 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h1><p>滚动检测：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;检测权益是否滑动到顶部，底部</span><br><span class="line">   TOOL_quanYiXiangQingHuaDong &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">       let DOM_1 &#x3D; document.documentElement;&#x2F;&#x2F;页面可视区域</span><br><span class="line">       let DOM_2 &#x3D; document.getElementById(&#39;quanYiXiangQing1&#39;);&#x2F;&#x2F;权益壳子元素</span><br><span class="line">       let DOM_3 &#x3D; document.getElementById(&#39;quanYiXiangQing2&#39;);&#x2F;&#x2F;权益内容元素</span><br><span class="line"></span><br><span class="line">       let DOM_1H &#x3D; 0;&#x2F;&#x2F;页面可视区域高度</span><br><span class="line">       let DOM_2H &#x3D; 0;&#x2F;&#x2F;权益壳子元素高度</span><br><span class="line">       let DOM_3H &#x3D; 0;&#x2F;&#x2F;权益内容元素</span><br><span class="line"></span><br><span class="line">       let topH &#x3D; 0;&#x2F;&#x2F;权益内容元素距离屏幕顶部距离</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       let that &#x3D; this;</span><br><span class="line">       if (DOM_1 &amp;&amp; DOM_2 &amp;&amp; DOM_3) &#123;</span><br><span class="line">           DOM_1H &#x3D; DOM_1.clientHeight;</span><br><span class="line">           DOM_2H &#x3D; DOM_2.clientHeight;</span><br><span class="line">           DOM_3H &#x3D; DOM_3.clientHeight;</span><br><span class="line">           DOM_2.onscroll &#x3D; function () &#123;</span><br><span class="line">               topH &#x3D; DOM_3.getBoundingClientRect().y;</span><br><span class="line">               let a &#x3D; Math.abs(DOM_1H - DOM_2H);</span><br><span class="line">               let b &#x3D; Math.abs(DOM_3H - DOM_1H) - 1;</span><br><span class="line">               let upNum &#x3D; that.upNum;&#x2F;&#x2F;权益详情上下滑动标识</span><br><span class="line">               let downNum &#x3D; that.downNum;&#x2F;&#x2F;权益详情下滑动标识</span><br><span class="line">               if (topH &gt;&#x3D; a) &#123;</span><br><span class="line">                   &#x2F;&#x2F; console.log(&#39;到-顶部-了&#39;);</span><br><span class="line">                   upNum +&#x3D; 1;</span><br><span class="line">                   that.upNum &#x3D; upNum;</span><br><span class="line">                   if (upNum &#x3D;&#x3D; 2) &#123;</span><br><span class="line">                       that.upNum &#x3D; 0;</span><br><span class="line">                       console.log(&#39;该切换上一个了&#39;);</span><br><span class="line">                       that.FN_qieHuanBiaoQian(true)</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line"></span><br><span class="line">               if (Math.abs(topH) &gt;&#x3D; b) &#123;</span><br><span class="line">                   &#x2F;&#x2F; console.log(&#39;到-底部-了&#39;);</span><br><span class="line">                   downNum +&#x3D; 1;</span><br><span class="line">                   that.downNum &#x3D; downNum;</span><br><span class="line">                   if (downNum &#x3D;&#x3D; 2) &#123;</span><br><span class="line">                       that.downNum &#x3D; 0;</span><br><span class="line">                       console.log(&#39;该切换下一个了&#39;);</span><br><span class="line">                       that.FN_qieHuanBiaoQian(false)</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line"></span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>二次滑动切换：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;滑动二次切换</span><br><span class="line">   FN_qieHuanBiaoQian &#x3D; (flag) &#x3D;&gt; &#123;</span><br><span class="line">       let processData &#x3D; this.state.processData;</span><br><span class="line">       let processIndex &#x3D; this.state.processIndex;</span><br><span class="line">       let arr &#x3D; [];</span><br><span class="line">       if (processData &amp;&amp; processData.length &gt; 0) &#123;</span><br><span class="line">           processData.forEach(function (v, i) &#123;</span><br><span class="line">               if (v.dataList &amp;&amp; v.dataList.length &gt; 0) &#123;</span><br><span class="line">                   arr.push(i)</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;)</span><br><span class="line">       &#125;</span><br><span class="line">       let nowI &#x3D; arr.findIndex(function (v, i) &#123;</span><br><span class="line">           return v &#x3D;&#x3D;&#x3D; processIndex;</span><br><span class="line">       &#125;);</span><br><span class="line"></span><br><span class="line">       let next &#x3D; processIndex;</span><br><span class="line">       if (nowI &#x3D;&#x3D;&#x3D; 0) &#123;</span><br><span class="line">           next &#x3D; flag ? arr[nowI] : arr[nowI + 1];</span><br><span class="line">       &#125; else if (nowI &#x3D;&#x3D;&#x3D; arr.length - 1) &#123;</span><br><span class="line">           next &#x3D; flag ? arr[nowI - 1] : arr[nowI];</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           next &#x3D; flag ? arr[nowI - 1] : arr[nowI + 1];</span><br><span class="line">       &#125;</span><br><span class="line">       this.setState(&#123;</span><br><span class="line">           processIndex: next</span><br><span class="line">       &#125;, () &#x3D;&gt; &#123;</span><br><span class="line">           &#x2F;&#x2F; this.upNum&#x3D;0;&#x2F;&#x2F;权益详情上下滑动标识</span><br><span class="line">           &#x2F;&#x2F; this.downNum&#x3D;0;&#x2F;&#x2F;权益详情下滑动标识</span><br><span class="line"></span><br><span class="line">           this.TOOL_quanYiXiangQingHuaDong()</span><br><span class="line">       &#125;)</span><br><span class="line">   &#125;;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/28/%E5%B7%A7%E7%94%A8-Swiper-%E5%AE%9E%E7%8E%B0%E5%8F%A6%E7%B1%BB%E5%B8%83%E5%B1%80%E8%BD%AE%E6%92%AD%E5%9B%BE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1277,137 +1365,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/15/%E8%80%81%E7%94%9F%E5%B8%B8%E8%B0%88%E2%80%94%E2%80%94call-apply-bind/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://inews.gtimg.com/newsapp_ls/0/12122532695/0">
-      <meta itemprop="name" content="Albert Guo">
-      <meta itemprop="description" content="郭鹏松的个人博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Albert Guo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/12/15/%E8%80%81%E7%94%9F%E5%B8%B8%E8%B0%88%E2%80%94%E2%80%94call-apply-bind/" class="post-title-link" itemprop="url">老生常谈——call,apply,bind</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-12-15 19:41:39" itemprop="dateCreated datePublished" datetime="2017-12-15T19:41:39+08:00">2017-12-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-15 19:55:23" itemprop="dateModified" datetime="2020-07-15T19:55:23+08:00">2020-07-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文部分摘录自 <strong>JavaScript官方教程</strong><br>参考地址：<a href="https://wangdoc.com/javascript/oop/this.html#functionprototypebind" target="_blank" rel="noopener">https://wangdoc.com/javascript/oop/this.html#functionprototypebind</a>   </p>
-</blockquote>
-<p>最近接触了 React ，里面的方法需要绑定 <code>this</code> 的指向问题，官方推荐用 <code>bind</code> 进行绑定。所以整理学习了一下老生常谈的问题，JavaScript 的 <code>this</code> 的指向和绑定。</p>
-<h2 id="this-关键字"><a href="#this-关键字" class="headerlink" title="this 关键字"></a>this 关键字</h2><p> <code>this</code> 就是属性或方法“当前”所在的对象。不管是什么场合，<code>this</code> 都有一个共同点：它总是返回一个对象。</p>
-<p> 在 JavaScript 语言中，一切皆对象，运行环境也是对象，所以函数都是在某个对象之中运行，<code>this</code> 就是函数运行时所在的对象（环境）。这本来不会让用户糊涂，但是 JavaScript 支持运行环境动态切换，也就是说，<code>this</code> 的指向时动态的，没办法事先确定到底指向哪个对象，这才是让人困惑的地方。</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function f() &#123;</span><br><span class="line">  return &#39;姓名：&#39;+ this.name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var A &#x3D; &#123;</span><br><span class="line">  name: &#39;张三&#39;,</span><br><span class="line">  describe: f</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var B &#x3D; &#123;</span><br><span class="line">  name: &#39;李四&#39;,</span><br><span class="line">  describe: f</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">A.describe() &#x2F;&#x2F; &quot;姓名：张三&quot;</span><br><span class="line">B.describe() &#x2F;&#x2F; &quot;姓名：李四&quot;</span><br></pre></td></tr></table></figure>
-
-<p> <code>this</code> 使用场合：</p>
-<ul>
-<li><p>全局环境：全局环境使用 <code>this</code> ，它指向的就是顶层对象 <code>window</code>。</p>
-</li>
-<li><p>构造函数：构造函数中的 <code>this</code> ，指的就是实例对象。</p>
-</li>
-<li><p>对象的方法：如果对象的方法里面包含 <code>this</code> , <code>this</code> 的指向就是方法所运行时所在的对象。该方法赋值给另一个对象，就会改变 this 的指向。</p>
-<p><code>this</code> 使用注意点：</p>
-</li>
-<li><p>避免多层 <code>this</code>：由于 <code>this</code> 的指向是不确定的，避免在函数中包含多层 <code>this</code>。</p>
-</li>
-<li><p>避免数组方法中 <code>this</code>：数组的 <code>map</code> 和 <code>foreach</code> 方法，允许提供一个函数作为参数。这个函数内部不应该使用 <code>this</code>。</p>
-</li>
-<li><p>避免回调函数中的 <code>this</code>：回调函数中的 <code>this</code> 往往会改变指向，最好避免使用。</p>
-<h3 id="绑定-this-的方法"><a href="#绑定-this-的方法" class="headerlink" title="绑定 this 的方法"></a>绑定 this 的方法</h3><p>JavaScript 提供了 <code>call、apply、bind</code> 这三个方法，来切换/固定 <code>this</code> 的指向。</p>
-<h4 id="Function-prototype-call"><a href="#Function-prototype-call" class="headerlink" title="Function.prototype.call()"></a>Function.prototype.call()</h4><p>函数实例的 <code>call</code> 方法，可以指定函数内部的 <code>this</code>  指向（即函数执行时所在的作用域），然后在指定的作用域中，调用该函数。</p>
-<p><code>call</code> 方法的参数，应该是一个对象。如果参数为 <code>空、null</code> 和 <code>undefined</code> ，则默认传入全局对象。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var obj &#x3D; &#123;&#125;;</span><br><span class="line"></span><br><span class="line">var f &#x3D; function () &#123;</span><br><span class="line">  return this;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">f() &#x3D;&#x3D;&#x3D; window &#x2F;&#x2F; true</span><br><span class="line">f.call(obj) &#x3D;&#x3D;&#x3D; obj &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
-
-<p><code>call</code> 方法还可以接受多个参数。<code>call</code> 的第一个参数就是 <code>this</code> 所要指向的那个对象，后面的参数则是函数调用时所需的参数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func.call(thisValue, arg1, arg2, ...)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function add(a, b) &#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add.call(this, 1, 2) &#x2F;&#x2F; 3</span><br></pre></td></tr></table></figure>
-
-<h4 id="Function-prototype-apply"><a href="#Function-prototype-apply" class="headerlink" title="Function.prototype.apply()"></a>Function.prototype.apply()</h4><p><code>apply</code> 方法的作用与 <code>call</code> 方法类似，也是改变 <code>this</code> 指向，然后再调用该函数。唯一的区别就是，它接收一个数组作为函数执行时的参数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func.apply(thisValue, [arg1, arg2, ...])</span><br></pre></td></tr></table></figure>
-
-<h4 id="Function-prototype-bind"><a href="#Function-prototype-bind" class="headerlink" title="Function.prototype.bind()"></a>Function.prototype.bind()</h4><p><code>bind</code> 方法用于将函数体内的 <code>this</code> 绑定到某个对象，然后返回一个新函数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var d &#x3D; new Date();</span><br><span class="line">d.getTime() &#x2F;&#x2F; 1481869925657</span><br><span class="line"></span><br><span class="line">var print &#x3D; d.getTime;</span><br><span class="line">print() &#x2F;&#x2F; Uncaught TypeError: this is not a Date object.</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，我们将 <code>d.getTime()</code> 方法赋给变量 <code>print</code>，然后调用 <code>print()</code> 就报错了。这是因为 <code>getTime()</code> 方法内部的 <code>this</code>，绑定 <code>Date</code> 对象的实例，赋给变量 <code>print</code> 以后，内部的 <code>this</code> 已经不指向 <code>Date</code> 对象的实例了。</p>
-<p><code>bind()</code> 方法可以解决这个问题。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var print &#x3D; d.getTime.bind(d);</span><br><span class="line">print() &#x2F;&#x2F; 1481869925657</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，<code>bind()</code> 方法将 <code>getTime()</code> 方法内部的 <code>this</code> 绑定到 <code>d</code> 对象，这时就可以安全地将这个方法赋值给其他变量了。</p>
-<p><code>bind()</code> 的作用与 <code>call()</code> 和 <code>apply()</code> 一样，都是可以改变函数运行时上下文，区别是 <code>call()</code> 和 <code>apply()</code> 在调用函数之后会立即执行，而 <code>bind()</code> 方法调用并改变函数运行时上下文后，返回一个新的函数，供我们需要时再调用。</p>
-<h3 id="如何选用"><a href="#如何选用" class="headerlink" title="如何选用"></a>如何选用</h3></li>
-<li><p>如果不需要关心具体有多少参数被传入函数，选用 <code>apply()</code>；</p>
-</li>
-<li><p>如果确定函数可接收多少个参数，并且想一目了然表达形参和实参的对应关系，用 <code>call()</code>；</p>
-</li>
-<li><p>如果我们想要将来再调用方法，不需立即得到函数返回结果，则使用 <code>bind()</code>。</p>
-<h3 id="特点总结"><a href="#特点总结" class="headerlink" title="特点总结"></a>特点总结</h3></li>
-<li><p><code>call()</code>、<code>apply()</code> 和 <code>bind()</code> 都是用来改变函数执行时的上下文，可借助它们实现继承；</p>
-</li>
-<li><p><code>call()</code> 和 <code>apply()</code> 唯一区别是参数不一样，<code>call()</code> 是 <code>apply()</code> 的语法糖；</p>
-</li>
-<li><p><code>bind()</code> 是返回一个新函数，供以后调用，而 <code>apply()</code> 和 <code>call()</code> 是立即调用。</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1478,7 +1435,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
