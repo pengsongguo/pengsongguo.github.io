@@ -20,17 +20,17 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="需求描述最近接到一个需求，需要实现在页面的部分区域，实现上拉加载，下拉加载等类似的需求。而且第一次滑倒末端，不加载，只有第二次尝试滑动才加载切换导航。 之前做个类似需求，但是都是整屏幕的，这回不同的是部分区域。 布局解析  效果如下：   实现思路需求的难点：  如何判断内容区域滑到弹出框（阅读滑动区域）了顶端&#x2F;末端？ 如何仅在第二次滑动触发回调动作？  对于第一个问题，其实按照示例图的分割，可以">
+  <meta name="description" content="需求描述最近接到一个需求，需要实现在页面的部分区域，实现上拉加载，下拉加载等类似的需求。而且第一次滑倒末端，不加载，只有第二次尝试滑动才加载切换导航。 之前做个类似需求，但是都是整屏幕的，这回不同的是部分区域。 布局解析   效果如下：    实现思路需求的难点：  如何判断内容区域滑到弹出框（阅读滑动区域）了顶端&#x2F;末端？ 如何仅在第二次滑动触发回调动作？  对于第一个问题，其实按照示例图的分割，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="部分区域懒加载案例">
 <meta property="og:url" content="http://yoursite.com/2020/08/03/%E9%83%A8%E5%88%86%E5%8C%BA%E5%9F%9F%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A1%88%E4%BE%8B/index.html">
 <meta property="og:site_name" content="Albert Guo">
-<meta property="og:description" content="需求描述最近接到一个需求，需要实现在页面的部分区域，实现上拉加载，下拉加载等类似的需求。而且第一次滑倒末端，不加载，只有第二次尝试滑动才加载切换导航。 之前做个类似需求，但是都是整屏幕的，这回不同的是部分区域。 布局解析  效果如下：   实现思路需求的难点：  如何判断内容区域滑到弹出框（阅读滑动区域）了顶端&#x2F;末端？ 如何仅在第二次滑动触发回调动作？  对于第一个问题，其实按照示例图的分割，可以">
+<meta property="og:description" content="需求描述最近接到一个需求，需要实现在页面的部分区域，实现上拉加载，下拉加载等类似的需求。而且第一次滑倒末端，不加载，只有第二次尝试滑动才加载切换导航。 之前做个类似需求，但是都是整屏幕的，这回不同的是部分区域。 布局解析   效果如下：    实现思路需求的难点：  如何判断内容区域滑到弹出框（阅读滑动区域）了顶端&#x2F;末端？ 如何仅在第二次滑动触发回调动作？  对于第一个问题，其实按照示例图的分割，">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://img10.360buyimg.com/ddimg/jfs/t1/124163/23/8657/213911/5f27d9edE9c0561c0/a87a6c667c8a4dc7.png">
 <meta property="og:image" content="https://img12.360buyimg.com/ddimg/jfs/t1/139379/3/4451/1525195/5f27da43Ec5d12528/50bf3417f68705e3.gif">
 <meta property="article:published_time" content="2020-08-03T11:02:31.000Z">
-<meta property="article:modified_time" content="2020-08-03T11:03:18.991Z">
+<meta property="article:modified_time" content="2020-08-03T11:05:56.091Z">
 <meta property="article:author" content="Albert Guo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://img10.360buyimg.com/ddimg/jfs/t1/124163/23/8657/213911/5f27d9edE9c0561c0/a87a6c667c8a4dc7.png">
@@ -202,7 +202,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-08-03 19:02:31 / 修改时间：19:03:18" itemprop="dateCreated datePublished" datetime="2020-08-03T19:02:31+08:00">2020-08-03</time>
+              <time title="创建时间：2020-08-03 19:02:31 / 修改时间：19:05:56" itemprop="dateCreated datePublished" datetime="2020-08-03T19:02:31+08:00">2020-08-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -229,9 +229,11 @@
 <p>之前做个类似需求，但是都是整屏幕的，这回不同的是部分区域。</p>
 <h1 id="布局解析"><a href="#布局解析" class="headerlink" title="布局解析"></a>布局解析</h1><img src="https://img10.360buyimg.com/ddimg/jfs/t1/124163/23/8657/213911/5f27d9edE9c0561c0/a87a6c667c8a4dc7.png" width = "375" height = "1008" alt="布局解析" align="center">
 
+<hr>
 <p>效果如下：</p>
 <img src="https://img12.360buyimg.com/ddimg/jfs/t1/139379/3/4451/1525195/5f27da43Ec5d12528/50bf3417f68705e3.gif" width = "375" height = "667" alt="布局解析" align="left">
 
+<hr>
 <h1 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h1><p>需求的难点：</p>
 <ol>
 <li>如何判断内容区域滑到弹出框（阅读滑动区域）了顶端/末端？</li>
